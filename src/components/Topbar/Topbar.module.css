@@ -1,0 +1,22 @@
+.Topbar{
+    height: 56px;
+    width: 100%;
+    position: fixed;
+    top:0;
+    left:0;
+    background-color: #1C65A5;
+    display: flex;
+    justify-content:center;
+    align-content:center;
+    flex-direction:column;
+    color: #80B1D1;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 24px;
+}
+
+@media (max-width: 500px) {
+    .DesktopOnly{
+        display: none;
+    }
+}

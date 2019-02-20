@@ -1,0 +1,95 @@
+.InputList{
+    min-width: 300px;
+    background-color: #DEE3E5;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.InputList form{
+    width: 100%;
+    display:flex;
+    flex-direction: column;
+}
+
+.InputList input{
+    width:100%;
+    height:30px;
+    box-shadow: 0 2px 3px #ccc;
+    border: 2px solid #2176C2;
+    border-radius: 3px;
+    text-indent: 10px;
+    font-size: 18px;
+    box-sizing: border-box;
+}
+
+.Buttons{
+    width: 100%;
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.FormAcceptButton{
+    width:auto;
+    background-color: #6acc49;
+    color: #efefef;
+    box-shadow: 0 1px 0 0 #3f6f21;
+    border-radius: 3px;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top:5px;
+    padding: 8px;
+}
+
+.FormAcceptButton:hover{
+    background-color: #519839;
+    color: #fff;
+    cursor: pointer;
+}
+
+.FormAcceptButton:focus, 
+.FormAcceptButton:active{
+    outline:none;
+    background-color: #3f6f21;
+    cursor: pointer;
+}
+
+.FormCancelButton{
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+}
+
+.Cancel{
+    color: #798d99;
+    margin: 10px 0px 0px 10px;
+    cursor: pointer;
+}
+
+.Cancel:hover{
+    color: #17394d;
+}
+
+.InputListButton{
+    min-width: 330px;
+    background-color: rgba(0,0,0,.24);
+    border: rgba(0,0,0,.24);
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    margin:5px 0px;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    font-size: 16px;
+    font-weight: normal;
+    cursor: pointer;
+}

@@ -1,0 +1,18 @@
+.List{
+    min-width: 300px;
+    background-color: #DEE3E5;
+    border-radius: 5px;
+    margin: 5px;
+    text-align: left;
+    padding: 10px;
+    font-size: 22px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.List h4{
+    margin: 10px 0px;
+}

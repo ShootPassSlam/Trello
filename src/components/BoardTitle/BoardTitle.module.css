@@ -1,0 +1,10 @@
+.BoardTitle{
+    height: 65px;
+    padding-left: 15px;
+    vertical-align: middle;
+    display:table-cell;
+    color: #DDE9F1;    
+    font-weight: bold;
+    font-style: italic;
+    font-size: 24px;
+}
