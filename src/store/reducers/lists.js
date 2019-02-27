@@ -67,7 +67,7 @@ const reducer = (state=initialState, action) =>{
                 ]
             };
         case actionTypes.ADD_CARD:
-            const newCard = {id: action.cardLength+1, text: action.cardName}
+            const newCard = {id: `L${action.listId}C${action.cardLength+1}`, text: action.cardName}
             return{
                 ...state,
                 lists: {
@@ -92,13 +92,9 @@ const reducer = (state=initialState, action) =>{
                 newListCards = originalListCards
             }
             else{
-                console.log("IN HERE?")
                 originalListCards.splice(action.currentIndex, 1)
                 newListCards.splice(action.newIndex, 0, action.card)
-                console.log(originalListCards)
-                console.log(newListCards)
             }
-            // val.splice(to, 0, val.splice(from, 1)[0])
             return{
                 ...state,
                 lists: {
