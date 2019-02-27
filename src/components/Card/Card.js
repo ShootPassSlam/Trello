@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { DragSource, DropTarget} from 'react-dnd'
 
-import './Card.css';
+import styles from './Card.module.css';
 
 const Types = {
     ITEM: 'card'
@@ -9,10 +9,6 @@ const Types = {
 
 const cardSource = {
     beginDrag(props) {
-        console.log("BEGIN DRAG PROPS:")
-        console.log("ID:", props.id)
-        console.log("ORIGINAL INDEX:", props.index)
-        console.log("ORIGINAL LIST:", props.listId)
         return {
             id: props.id,
             originalIndex: props.index,
@@ -25,7 +21,8 @@ const cardSource = {
         const didDrop = monitor.didDrop()
 
         if (!didDrop) {
-            props.moveCard(originalListId, droppedId, originalIndex)
+            const { card, draggedIndex, draggedListId } = props.findCard(droppedId)
+            props.moveCard(draggedListId, originalListId, draggedIndex, originalIndex, card)
         }
     },
 }
@@ -46,7 +43,7 @@ const cardTarget = {
     },
 }
 
-const collectDrop = (connect) => {
+const collectDrop = (connect, monitor) => {
     return {
         connectDropTarget: connect.dropTarget()
     }
@@ -61,12 +58,16 @@ const collectDrag = (connect, monitor) =>{
 
 class Card extends React.Component {
     render() {
-        const { text, isDragging, connectDragSource, connectDropTarget } = this.props
-        let className = "Card"
+        const { text, isDragging, connectDragSource, connectDropTarget} = this.props
+        let className = styles.Card
         let height
         if(isDragging){
-            className="CardDragging"
+            className=styles.CardDragging
             height = this.myElement.clientHeight
+        }
+
+        if(this.props.isEmptyList){
+            className=styles.NoCardsPlaceholder
         }
 
         return connectDragSource(

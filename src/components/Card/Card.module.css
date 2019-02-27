@@ -25,3 +25,14 @@
     opacity: 0.3;
     border-radius: 5px;
 }
+
+.NoCardsPlaceholder{
+    width: 100%;
+    max-width: 320px;
+    border: none;
+    height: 65px;
+    margin: -10px;
+    padding: 0px;
+    box-sizing: border-box;
+    position:absolute;
+}

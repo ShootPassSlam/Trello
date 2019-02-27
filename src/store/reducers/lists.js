@@ -88,13 +88,12 @@ const reducer = (state=initialState, action) =>{
             const originalListCards = [...originalList.cards]
             const newListy = {...state.lists[action.newListId]}
             let newListCards = [...newListy.cards]
+            originalListCards.splice(action.currentIndex, 1)
             if(action.originalListId === action.newListId){
-                originalListCards.splice(action.currentIndex, 1)
                 originalListCards.splice(action.newIndex, 0, action.card)
                 newListCards = originalListCards
             }
             else{
-                originalListCards.splice(action.currentIndex, 1)
                 newListCards.splice(action.newIndex, 0, action.card)
             }
             return{

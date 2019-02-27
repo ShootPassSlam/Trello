@@ -4,7 +4,7 @@ import styles from './CardDrop.module.css';
 import { DropTarget } from 'react-dnd'
 
 const Types = {
-    ITEM: 'toy'
+    ITEM: 'card'
 }
 
 const collect = (connect, monitor) => {
@@ -37,8 +37,8 @@ class CardDrop extends Component {
         const {isOverCurrent, connectDropTarget} = this.props
 
         return connectDropTarget(
-            <div className={isOverCurrent ? styles.CardDrop: styles.CardDropDragging}>
-                {this.state.hasDropped}
+            <div>
+                HELLO DUDE
             </div>
         )
     }

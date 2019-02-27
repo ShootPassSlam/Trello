@@ -2,7 +2,7 @@ import * as React from 'react'
 import { DropTarget } from 'react-dnd'
 import Card from '../../components/Card/Card'
 import InputCard from '../InputCard/InputCard';
-import './List.css';
+import styles from './List.module.css';
 
 import { connect } from 'react-redux';
 import * as listActions from '../../store/actions/lists';
@@ -25,8 +25,15 @@ class Container extends React.Component{
     render() {
         const { connectDropTarget } = this.props
         const { cards } = this.props
-        let displayCards = null
-        if(cards){
+        let displayCards = <Card
+                    id={"NOID"}
+                    index={0}
+                    listId={this.props.listId}
+                    moveCard={this.props.onCardMovedInList}
+                    findCard={this.findCard}
+                    isEmptyList={true}
+                />;
+        if(cards.length !== 0){
             displayCards = cards.map(card => {
                 return <Card
                     key={card.id}
@@ -36,12 +43,13 @@ class Container extends React.Component{
                     listId={this.props.listId}
                     moveCard={this.props.onCardMovedInList}
                     findCard={this.findCard}
+                    isEmptyList={false}
                 />;
             })
         }
 
         return connectDropTarget(
-            <div className="List">
+            <div className={styles.List}>
                 <h4>{this.props.listName}</h4>
                 {displayCards}
                 <InputCard createNewCard={this.props.onCardAdded} 
