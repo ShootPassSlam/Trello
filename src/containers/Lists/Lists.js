@@ -5,14 +5,19 @@ import List from '../List/List';
 import InputList from '../InputList/InputList';
 import * as listActions from '../../store/actions/lists';
 
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContext } from 'react-dnd';
+
 class Lists extends Component {
 
     render(){
         const displayLists = Object.keys(this.props.lists).map( listKeys => {
                 return <List 
-                    key={listKeys} 
-                    listName={listKeys} 
-                    cards={this.props.lists[listKeys]}/>;
+                    key={listKeys}
+                    listId={listKeys} 
+                    listName={this.props.lists[listKeys].name} 
+                    cards={this.props.lists[listKeys].cards}
+                    lists={this.props.lists}/>;
             })
 
         return(
@@ -31,9 +36,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps= dispatch => {
     return {
-        onListAdded: (listName) => dispatch(listActions.addList(listName)),
-        onListRemoved: (listName) => dispatch(listActions.removeList(listName))
+        onListAdded: (listName, lists) => dispatch(listActions.addList(listName, lists))
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Lists);
+export default DragDropContext(HTML5Backend)(connect(mapStateToProps, mapDispatchToProps)(Lists));

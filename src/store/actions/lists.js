@@ -1,9 +1,10 @@
 import * as actionTypes from './actionTypes';
 
-export const addList = (name) =>{
+export const addList = (name, lists) =>{
     return {
         type: actionTypes.ADD_LIST,
-        listName: name
+        listName: name,
+        listLength: Object.keys(lists).length +1
     };
 };
 
@@ -14,10 +15,22 @@ export const removeList = (name) =>{
     };
 };
 
-export const addCard = (cardName, listName) =>{
+export const addCard = (cardName, cards, listId) =>{
     return {
         type: actionTypes.ADD_CARD,
         cardName: cardName,
-        listName: listName
+        cardLength: cards.length,
+        listId: listId
+    };
+};
+
+export const moveCardInList = (originalListId, newListId, currentIndex, newIndex, card) => {
+    return {
+        type: actionTypes.MOVE_CARD,
+        originalListId: originalListId,
+        newListId: newListId,
+        currentIndex: currentIndex,
+        newIndex: newIndex,
+        card: card
     };
 };

@@ -1,5 +1,6 @@
 .List{
     min-width: 300px;
+    max-width: 300px;
     background-color: #DEE3E5;
     border-radius: 5px;
     margin: 5px;

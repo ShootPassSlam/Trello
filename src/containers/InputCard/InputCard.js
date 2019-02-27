@@ -15,7 +15,7 @@ class InputCard extends Component{
 
     handleSubmit = event => {
         event.preventDefault();
-        this.props.createNewCard(this.state.cardName, this.props.list);
+        this.props.createNewCard(this.state.cardName, this.props.cards, this.props.listId);
         this.setState({cardName: ""});
     }
 
@@ -49,7 +49,7 @@ class InputCard extends Component{
 
     render (){
         const formIsValid = this.state.cardName.length > 0
-        const listText = Object.keys(this.props.cards).length> 0 ? '+ Add another card' : '+ Add a card';
+        const listText = this.props.cards ? '+ Add another card' : '+ Add a card';
         let form  = (
                 <div ref={node => { this.wrapperRef = node; }} className={styles.InputCard}>
                     <form onSubmit={this.handleSubmit}>

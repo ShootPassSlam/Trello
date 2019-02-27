@@ -15,7 +15,7 @@ class InputList extends Component{
 
     handleSubmit = event => {
         event.preventDefault();
-        this.props.createNewList(this.state.listName);
+        this.props.createNewList(this.state.listName, this.props.lists);
         this.setState({listName: ""});
     }
 
