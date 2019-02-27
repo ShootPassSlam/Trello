@@ -4,31 +4,31 @@ const initialState = {
     cardCounter: 8,
     lists: {
         1:{
-            name: "first List",
+            name: "Game One",
             cards: [
                 {
                     id: "L1C1",
-                    text: 'Write a cool JS library',
+                    text: 'Come up with a great game idea',
                 },
                 {
                     id: "L1C2",
-                    text: 'Make it generic enough',
+                    text: 'Write a solid spec outlining the idea',
                 },
                 {
                     id: "L1C3",
-                    text: 'Write README',
+                    text: 'Build and MVP Prototype',
                 },
                 {
                     id: "L1C4",
-                    text: 'Create some examples',
+                    text: 'Iterate on the prototype until fun',
                 },
                 {
                     id: "L1C5",
-                    text: 'Spam in Twitter and IRC to promote it',
+                    text: 'Launch and gather player data',
                 },
                 {
                     id: "L1C6",
-                    text: '???',
+                    text: 'Iterate based on player data',
                 },
                 {
                     id: "L1C7",
@@ -37,11 +37,11 @@ const initialState = {
             ]
         },
         2:{
-            name: "second List",
+            name: "Game Two",
             cards: [
                 {
                     id: "L2C8",
-                    text: 'Second List Card',
+                    text: 'Do it all again',
                 }
             ]
         }
@@ -58,14 +58,6 @@ const reducer = (state=initialState, action) =>{
                     ...state.lists,
                     [action.listLength]: newList
                 }
-            };
-        case actionTypes.REMOVE_LIST:
-            return{
-                ...state,
-                lists:  [
-                    ...state.lists.slice(0, state.lists.indexOf(action.listName)),
-                    ...state.lists.slice(state.lists.indexOf(action.listName)+1)
-                ]
             };
         case actionTypes.ADD_CARD:
             const newCard = {id: `L${action.listId}C${state.cardCounter+1}`, text: action.cardName}

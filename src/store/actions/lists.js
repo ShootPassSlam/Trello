@@ -8,13 +8,6 @@ export const addList = (name, lists) =>{
     };
 };
 
-export const removeList = (name) =>{
-    return {
-        type: actionTypes.REMOVE_LIST,
-        listName: name
-    };
-};
-
 export const addCard = (cardName, cards, listId) =>{
     return {
         type: actionTypes.ADD_CARD,

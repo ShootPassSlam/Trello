@@ -29,8 +29,8 @@ class Container extends React.Component{
                     id={"NOID"}
                     index={0}
                     listId={this.props.listId}
-                    moveCard={this.props.onCardMovedInList}
                     findCard={this.findCard}
+                    moveCard={this.props.onCardMovedInList}
                     isEmptyList={true}
                 />;
         if(cards.length !== 0){
@@ -41,8 +41,8 @@ class Container extends React.Component{
                     text={card.text}
                     index={cards.indexOf(card)}
                     listId={this.props.listId}
-                    moveCard={this.props.onCardMovedInList}
                     findCard={this.findCard}
+                    moveCard={this.props.onCardMovedInList}
                     isEmptyList={false}
                 />;
             })
@@ -81,7 +81,6 @@ const mapDispatchToProps= dispatch => {
     return {
         onCardAdded: (cardName, cards, listId) => dispatch(listActions.addCard(cardName, cards, listId)),
         onCardMovedInList: (originalListId, newListId, currentIndex, newIndex, card) => dispatch(listActions.moveCardInList(originalListId, newListId, currentIndex, newIndex, card))
-
     }
 }
 
