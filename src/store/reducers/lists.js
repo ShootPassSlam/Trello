@@ -1,6 +1,7 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
+    cardCounter: 8,
     lists: {
         1:{
             name: "first List",
@@ -39,7 +40,7 @@ const initialState = {
             name: "second List",
             cards: [
                 {
-                    id: "L2C1",
+                    id: "L2C8",
                     text: 'Second List Card',
                 }
             ]
@@ -67,9 +68,10 @@ const reducer = (state=initialState, action) =>{
                 ]
             };
         case actionTypes.ADD_CARD:
-            const newCard = {id: `L${action.listId}C${action.cardLength+1}`, text: action.cardName}
+            const newCard = {id: `L${action.listId}C${state.cardCounter+1}`, text: action.cardName}
             return{
                 ...state,
+                cardCounter: state.cardCounter+1,
                 lists: {
                     ...state.lists,
                    [action.listId]: {

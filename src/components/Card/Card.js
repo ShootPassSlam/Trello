@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { DragSource, DropTarget} from 'react-dnd'
 
-import styles from './Card.module.css';
+import './Card.css';
 
 const Types = {
     ITEM: 'card'
@@ -62,10 +62,10 @@ const collectDrag = (connect, monitor) =>{
 class Card extends React.Component {
     render() {
         const { text, isDragging, connectDragSource, connectDropTarget } = this.props
-        let className = styles.Card
+        let className = "Card"
         let height
         if(isDragging){
-            className=styles.CardDragging
+            className="CardDragging"
             height = this.myElement.clientHeight
         }
 

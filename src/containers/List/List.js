@@ -2,7 +2,7 @@ import * as React from 'react'
 import { DropTarget } from 'react-dnd'
 import Card from '../../components/Card/Card'
 import InputCard from '../InputCard/InputCard';
-import styles from './List.module.css';
+import './List.css';
 
 import { connect } from 'react-redux';
 import * as listActions from '../../store/actions/lists';
@@ -41,7 +41,7 @@ class Container extends React.Component{
         }
 
         return connectDropTarget(
-            <div className={styles.List}>
+            <div className="List">
                 <h4>{this.props.listName}</h4>
                 {displayCards}
                 <InputCard createNewCard={this.props.onCardAdded} 
