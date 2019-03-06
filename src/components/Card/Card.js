@@ -4,7 +4,7 @@ import { DragSource, DropTarget} from 'react-dnd'
 import styles from './Card.module.css';
 
 const Types = {
-    ITEM: 'card'
+    CARD: 'card'
 }
 
 const cardSource = {
@@ -57,10 +57,12 @@ const collectDrag = (connect, monitor) =>{
 }
 
 class Card extends React.Component {
+
     render() {
         const { text, isDragging, connectDragSource, connectDropTarget} = this.props
         let className = styles.Card
         let height
+
         if(isDragging){
             className=styles.CardDragging
             height = this.myElement.clientHeight
@@ -69,11 +71,14 @@ class Card extends React.Component {
         if(this.props.isEmptyList){
             className=styles.NoCardsPlaceholder
         }
+        if(this.props.isEmptyList && this.props.isOver){
+            className=styles.NoCardsPlaceholderDragging
+        }
 
         return connectDragSource(
-            connectDropTarget(<div className={className} ref={input => { this.myElement = input; }} style={{height}}>{text}</div>),
+            connectDropTarget(<div className={className} ref={input => { this.myElement = input; }} style={{height}}>{text}</div>)
         )
     }
 }
 
-export default DropTarget(Types.ITEM, cardTarget, collectDrop)(DragSource(Types.ITEM, cardSource, collectDrag)(Card))
+export default DropTarget(Types.CARD, cardTarget, collectDrop)(DragSource(Types.CARD, cardSource, collectDrag)(Card))

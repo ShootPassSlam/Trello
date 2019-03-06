@@ -21,18 +21,23 @@
     white-space: nowrap;
     overflow: hidden;
     background-color: rgba(0,0,0,.20);
-    cursor: pointer;
+    cursor: grabbing;
     opacity: 0.3;
     border-radius: 5px;
 }
 
-.NoCardsPlaceholder{
+.NoCardsPlaceholderDragging{
     width: 100%;
     max-width: 320px;
     border: none;
-    height: 65px;
-    margin: -10px;
+    height: 100px;
+    margin: 0px -10px;
     padding: 0px;
     box-sizing: border-box;
     position:absolute;
+    cursor: grabbing;
+}
+
+.NoCardsPlaceholder{
+    display: none;
 }

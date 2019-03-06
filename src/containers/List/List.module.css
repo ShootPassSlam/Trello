@@ -12,6 +12,15 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    cursor: pointer;
+}
+
+.ListDragging{
+    min-width: 300px;
+    max-width: 300px;
+    margin: 5px;
+    padding: 10px;
+    opacity: 0.0;
 }
 
 .List h4{

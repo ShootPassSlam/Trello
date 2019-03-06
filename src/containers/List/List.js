@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { DropTarget } from 'react-dnd'
+import { DragSource, DropTarget} from 'react-dnd'
 import Card from '../../components/Card/Card'
 import InputCard from '../InputCard/InputCard';
 import styles from './List.module.css';
@@ -8,30 +8,80 @@ import { connect } from 'react-redux';
 import * as listActions from '../../store/actions/lists';
 
 const Types = {
-    ITEM: 'card'
+    CARD: 'card',
+    LIST: 'lists'
 }
 
 const cardTarget = {
     drop() {}
 }
 
-const collectDrop = (connect, monitor) =>{
+const collectDropCard = (connect, monitor) =>{
     return {
-        connectDropTarget: connect.dropTarget()
+        connectDropTargetCard: connect.dropTarget(),
+        isOver: monitor.isOver()
     }
 }
 
-class Container extends React.Component{
+const listSource = {
+    beginDrag(props) {
+        return {
+            listId: props.listId,
+            index: props.index
+        }
+    },
+
+    endDrag(props, monitor) {
+    },
+}
+
+const listTarget = {
+    canDrop() {
+        return false
+    },
+
+    hover(props, monitor) {
+        const { listId: draggedListId} = monitor.getItem()
+        const { listId: hoverListId, index: hoverIndex } = props
+
+        if (draggedListId !== hoverListId) {
+            const  draggedIndex = props.findList(draggedListId)
+            props.moveList(draggedIndex, hoverIndex)
+        }
+    },
+}
+
+const collectDrop = (connect, monitor) => {
+    return {
+        connectDropTarget: connect.dropTarget(),
+        isOverlocally: monitor.isOver()
+    }
+}
+
+const collectDrag = (connect, monitor) =>{
+    return {
+        connectDragSource: connect.dragSource()
+    }
+}
+
+class List extends React.Component{
     render() {
-        const { connectDropTarget } = this.props
+        const { connectDropTarget, connectDragSource, connectDropTargetCard, isOver, isOverlocally} = this.props
         const { cards } = this.props
+        
+        let className = styles.List
+        if(isOverlocally){
+            className=styles.ListDragging
+        }
+
         let displayCards = <Card
                     id={"NOID"}
                     index={0}
-                    listId={this.props.listId}
+                    listId={this.props.index}
                     findCard={this.findCard}
-                    moveCard={this.props.onCardMovedInList}
+                    moveCard={this.props.onCardMoved}
                     isEmptyList={true}
+                    isOver={isOver}
                 />;
         if(cards.length !== 0){
             displayCards = cards.map(card => {
@@ -40,22 +90,27 @@ class Container extends React.Component{
                     id={`${card.id}`}
                     text={card.text}
                     index={cards.indexOf(card)}
-                    listId={this.props.listId}
+                    listId={this.props.index}
                     findCard={this.findCard}
-                    moveCard={this.props.onCardMovedInList}
+                    moveCard={this.props.onCardMoved}
                     isEmptyList={false}
+                    isOver={isOver}
                 />;
             })
         }
 
-        return connectDropTarget(
-            <div className={styles.List}>
-                <h4>{this.props.listName}</h4>
-                {displayCards}
-                <InputCard createNewCard={this.props.onCardAdded} 
-                    cards={this.props.cards} 
-                    listId={this.props.listId}/>
-            </div>
+        return connectDragSource(
+            connectDropTarget(
+                connectDropTargetCard(
+                    <div className={className}>
+                        <h4>{this.props.listName}</h4>
+                        {displayCards}
+                        <InputCard createNewCard={this.props.onCardAdded} 
+                            cards={this.props.cards} 
+                            listId={this.props.index}/>
+                    </div>
+                )
+            )    
         )
     }
 
@@ -80,8 +135,14 @@ class Container extends React.Component{
 const mapDispatchToProps= dispatch => {
     return {
         onCardAdded: (cardName, cards, listId) => dispatch(listActions.addCard(cardName, cards, listId)),
-        onCardMovedInList: (originalListId, newListId, currentIndex, newIndex, card) => dispatch(listActions.moveCardInList(originalListId, newListId, currentIndex, newIndex, card))
+        onCardMoved: (originalListId, newListId, currentIndex, newIndex, card) => dispatch(listActions.moveCard(originalListId, newListId, currentIndex, newIndex, card))
     }
 }
 
-export default DropTarget(Types.ITEM, cardTarget, collectDrop)(connect(null, mapDispatchToProps)(Container))
+export default DropTarget(Types.LIST, listTarget, collectDrop)(
+    DragSource(Types.LIST, listSource, collectDrag)(
+        DropTarget(Types.CARD, cardTarget, collectDropCard)(
+            connect(null, mapDispatchToProps)(List)
+        )
+    )
+)

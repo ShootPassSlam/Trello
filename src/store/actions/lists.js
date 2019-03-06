@@ -17,7 +17,7 @@ export const addCard = (cardName, cards, listId) =>{
     };
 };
 
-export const moveCardInList = (originalListId, newListId, currentIndex, newIndex, card) => {
+export const moveCard = (originalListId, newListId, currentIndex, newIndex, card) => {
     return {
         type: actionTypes.MOVE_CARD,
         originalListId: originalListId,
@@ -25,5 +25,13 @@ export const moveCardInList = (originalListId, newListId, currentIndex, newIndex
         currentIndex: currentIndex,
         newIndex: newIndex,
         card: card
+    };
+};
+
+export const moveList = (originalListId, newListId) => {
+    return {
+        type: actionTypes.MOVE_LIST,
+        originalListId: originalListId,
+        newListId: newListId
     };
 };

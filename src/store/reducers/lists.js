@@ -4,6 +4,7 @@ const initialState = {
     cardCounter: 8,
     lists: {
         1:{
+            id: 1,
             name: "Game One",
             cards: [
                 {
@@ -37,6 +38,7 @@ const initialState = {
             ]
         },
         2:{
+            id: 2,
             name: "Game Two",
             cards: [
                 {
@@ -51,7 +53,7 @@ const initialState = {
 const reducer = (state=initialState, action) =>{
     switch(action.type){
         case actionTypes.ADD_LIST:
-            const newList = {name: action.listName, cards:[]};
+            const newList = {id: action.listLength, name: action.listName, cards:[]};
             return{
                 ...state,
                 lists: {
@@ -102,8 +104,22 @@ const reducer = (state=initialState, action) =>{
                     }
                 }
             };
+        case actionTypes.MOVE_LIST:
+            [action.originalListId, action.newListId] = [action.newListId, action.originalListId]
+            return{
+                ...state,
+                lists: {
+                    ...state.lists,
+                    [action.originalListId]:{
+                        ...state.lists[action.newListId]
+                    },
+                    [action.newListId]:{
+                        ...state.lists[action.originalListId]
+                    }
+                }
+            };
         default:
-            return state;
+            return state;   
     }
 }
 
