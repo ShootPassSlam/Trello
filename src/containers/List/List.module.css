@@ -13,6 +13,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     cursor: pointer;
+    overflow: scroll;
 }
 
 .ListDragging{
@@ -23,6 +24,6 @@
     opacity: 0.0;
 }
 
-.List h4{
+.List header{
     margin: 10px 0px;
 }

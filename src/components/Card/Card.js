@@ -46,7 +46,8 @@ const cardTarget = {
 
 const collectDrop = (connect, monitor) => {
     return {
-        connectDropTarget: connect.dropTarget()
+        connectDropTarget: connect.dropTarget(),
+        item: monitor.getItem()
     }
 }
 
@@ -63,19 +64,26 @@ class Card extends React.Component {
         isHovered: false
     }
 
-    handleHover = () => {
-        this.setState( (prevState) => {return {isHovered: !prevState.isHovered};});
+    mouseIn = () => {
+        this.setState( (prevState) => {return {isHovered: true};});
+    }
+
+    mouseOut = () => {
+        this.setState( (prevState) => {return {isHovered: false};});
     }
 
     render() {
-        const { text, isDragging, connectDragSource, connectDropTarget} = this.props
-        const editIcon = this.state.isHovered ? styles.FormEdit : styles.FormHidden
-        let className = styles.Card
+        const { text, isDragging, connectDragSource, connectDropTarget, item} = this.props
+        let editIcon = (this.state.isHovered && !item) ? styles.FormEdit : styles.FormHidden
+        let className = styles.CardContainer
+        let classCard = styles.Card
         let height
 
         if(isDragging){
             className=styles.CardDragging
+            classCard = styles.CardDragging
             height = this.myElement.clientHeight
+            editIcon = styles.NoCardsPlaceholder
         }
 
         if(this.props.isEmptyList){
@@ -87,8 +95,13 @@ class Card extends React.Component {
 
         return connectDragSource(
             connectDropTarget(
-                <div className={styles.CardContainer} onMouseEnter={this.handleHover} onMouseLeave={this.handleHover}>
-                    <div className={className} ref={input => { this.myElement = input; }} style={{height}}>{text}</div>
+                <div 
+                    className={className} 
+                    ref={input => { this.myElement = input; }} 
+                    onMouseEnter={this.mouseIn} 
+                    onMouseLeave={this.mouseOut} 
+                    style={{height}}>
+                    <div className={classCard}>{text}</div>
                     <span className={editIcon}><Edit className={styles.Edit} style={{ fontSize: 20 }}/></span>
                 </div>)
         )

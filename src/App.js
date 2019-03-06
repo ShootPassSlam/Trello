@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import './App.scss';
 import Topbar from './components/Topbar/Topbar';
 import Board from './containers/Board/Board';
 

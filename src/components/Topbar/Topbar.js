@@ -2,9 +2,9 @@ import React from 'react';
 import styles from './Topbar.module.css';
 
 const topbar = (props) => (
-    <header className={styles.Topbar}>
+    <nav className={styles.Topbar}>
         Trello
-    </header>
+    </nav>
 );
 
 export default topbar;

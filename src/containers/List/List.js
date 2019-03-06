@@ -103,7 +103,7 @@ class List extends React.Component{
             connectDropTarget(
                 connectDropTargetCard(
                     <div className={className}>
-                        <h4>{this.props.listName}</h4>
+                        <header>{this.props.listName}</header>
                         {displayCards}
                         <InputCard createNewCard={this.props.onCardAdded} 
                             cards={this.props.cards} 

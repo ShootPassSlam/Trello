@@ -1,6 +1,6 @@
 .CardContainer{
     background-color: #fff;
-    border-radius: 3px;
+    border-radius: 5px;
     box-shadow: 0 1px 0 rgba(9,45,66,.25);
     cursor: pointer;
     display: block;
@@ -13,10 +13,13 @@
     width:100%;
 }
 
+.CardContainer:hover{
+    background-color: #f5f6f7;
+}
+
 .Card{
     width:100%;
     max-width: 300px;
-    background-color: white;
     border-radius: 5px;
     padding: 10px 5px;
     margin:5px 0px;
@@ -32,13 +35,15 @@
 
 .CardDragging{
     width:100%;
+    height:100%;
     text-indent: 100%;
+    margin-bottom: 8px;
     white-space: nowrap;
     overflow: hidden;
-    background-color: rgba(0,0,0,.20);
     cursor: grabbing;
     opacity: 0.3;
     border-radius: 5px;
+    background-color: #516b7a;
 }
 
 .NoCardsPlaceholderDragging{
@@ -61,7 +66,7 @@
     background-color: #f5f6f7;
     background-clip: padding-box;
     background-origin: padding-box;
-    border-radius: 3px;
+    border-radius: 5px;
     opacity: .8;
     padding: 4px;
     position: absolute;
@@ -75,7 +80,7 @@
     background-color: #f5f6f7;
     background-clip: padding-box;
     background-origin: padding-box;
-    border-radius: 3px;
+    border-radius: 5px;
     opacity: .8;
     padding: 4px;
     position: absolute;
