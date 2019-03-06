@@ -1,3 +1,18 @@
+.CardContainer{
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(9,45,66,.25);
+    cursor: pointer;
+    display: block;
+    margin-bottom: 8px;
+    max-width: 300px;
+    min-height: 20px;
+    position: relative;
+    text-decoration: none;
+    z-index: 0;
+    width:100%;
+}
+
 .Card{
     width:100%;
     max-width: 300px;
@@ -40,4 +55,47 @@
 
 .NoCardsPlaceholder{
     display: none;
+}
+
+.FormEdit{
+    background-color: #f5f6f7;
+    background-clip: padding-box;
+    background-origin: padding-box;
+    border-radius: 3px;
+    opacity: .8;
+    padding: 4px;
+    position: absolute;
+    right: 5px;
+    top: 8px;
+    z-index: 40;
+    visibility: visible;
+}
+
+.FormHidden{
+    background-color: #f5f6f7;
+    background-clip: padding-box;
+    background-origin: padding-box;
+    border-radius: 3px;
+    opacity: .8;
+    padding: 4px;
+    position: absolute;
+    right: 5px;
+    top: 8px;
+    z-index: 40;
+    visibility: hidden;
+}
+
+.FormEdit:hover{
+    background-color: #ebeef0;
+    opacity: 1;
+}
+
+.Edit{
+    color: #798d99;
+    cursor: pointer;
+}
+
+.Edit:hover{
+    color: #516b7a;
+    text-decoration: none;
 }

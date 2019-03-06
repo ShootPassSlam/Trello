@@ -2,6 +2,7 @@ import * as React from 'react'
 import { DragSource, DropTarget} from 'react-dnd'
 
 import styles from './Card.module.css';
+import Edit from '@material-ui/icons/Edit';
 
 const Types = {
     CARD: 'card'
@@ -58,8 +59,17 @@ const collectDrag = (connect, monitor) =>{
 
 class Card extends React.Component {
 
+    state = {
+        isHovered: false
+    }
+
+    handleHover = () => {
+        this.setState( (prevState) => {return {isHovered: !prevState.isHovered};});
+    }
+
     render() {
         const { text, isDragging, connectDragSource, connectDropTarget} = this.props
+        const editIcon = this.state.isHovered ? styles.FormEdit : styles.FormHidden
         let className = styles.Card
         let height
 
@@ -76,7 +86,11 @@ class Card extends React.Component {
         }
 
         return connectDragSource(
-            connectDropTarget(<div className={className} ref={input => { this.myElement = input; }} style={{height}}>{text}</div>)
+            connectDropTarget(
+                <div className={styles.CardContainer} onMouseEnter={this.handleHover} onMouseLeave={this.handleHover}>
+                    <div className={className} ref={input => { this.myElement = input; }} style={{height}}>{text}</div>
+                    <span className={editIcon}><Edit className={styles.Edit} style={{ fontSize: 20 }}/></span>
+                </div>)
         )
     }
 }
