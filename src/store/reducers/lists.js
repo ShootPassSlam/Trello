@@ -1,81 +1,107 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
+    listCounter: 2,
     cardCounter: 8,
-    lists: {
-        1:{
-            id: 1,
-            name: "Game One",
-            cards: [
-                {
-                    id: "L1C1",
-                    text: 'Come up with a great game idea',
-                },
-                {
-                    id: "L1C2",
-                    text: 'Write a solid spec outlining the idea',
-                },
-                {
-                    id: "L1C3",
-                    text: 'Build and MVP Prototype',
-                },
-                {
-                    id: "L1C4",
-                    text: 'Iterate on the prototype until fun',
-                },
-                {
-                    id: "L1C5",
-                    text: 'Launch and gather player data',
-                },
-                {
-                    id: "L1C6",
-                    text: 'Iterate based on player data',
-                },
-                {
-                    id: "L1C7",
-                    text: 'PROFIT',
-                }
-            ]
+    lists: [
+        {
+            listId:1,
+            text: "Game One",
         },
-        2:{
-            id: 2,
-            name: "Game Two",
-            cards: [
-                {
-                    id: "L2C8",
-                    text: 'Do it all again',
-                }
-            ]
+        {
+            listId:2,
+            text: "Game Two"
         }
-    }
+    ],
+    cards:[
+        {
+            cardId: 1,
+            listId: 1,
+            title: 'Come up with a great game idea',
+            description: "first Description"
+        },
+        {
+            cardId: 2,
+            listId: 1,
+            title: 'Write a solid spec outlining the idea',
+            description: ""
+        },
+        {
+            cardId: 3,
+            listId: 1,
+            title: 'Build and MVP Prototype',
+            description: ""
+        },
+        {
+            cardId: 4,
+            listId: 1,
+            title: 'Iterate on the prototype until fun',
+            description: ""
+        },
+        {
+            cardId: 5,
+            listId: 1,
+            title: 'Launch and gather player data',
+            description: ""
+        },
+        {
+            cardId: 6,
+            listId: 1,
+            title: 'Iterate based on player data',
+            description: ""
+        },
+        {
+            cardId: 7,
+            listId: 1,
+            title: 'PROFIT',
+            description: ""
+        },
+        {
+            cardId: 8,
+            listId: 2,
+            title: 'Do it all again',
+            description: ""
+        }
+    ],
+    comments:[
+        {
+            cardid:1,
+            text: "First Comment",
+        },
+        {
+            cardid:1,
+            text: "Second Comment",
+        },
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+    ]
 };
 
 const reducer = (state=initialState, action) =>{
     switch(action.type){
         case actionTypes.ADD_LIST:
-            const newList = {id: action.listLength, name: action.listName, cards:[]};
+            const newList = {listId: state.listCounter+1, text: action.listName};
             return{
                 ...state,
-                lists: {
+                listCounter: state.listCounter+1,
+                lists: [
                     ...state.lists,
-                    [action.listLength]: newList
-                }
+                    newList
+                ]
             };
         case actionTypes.ADD_CARD:
-            const newCard = {id: `L${action.listId}C${state.cardCounter+1}`, text: action.cardName}
+            const newCard = {cardId:state.cardCounter+1, listId:action.listId, title: action.cardName, description:""}
             return{
                 ...state,
                 cardCounter: state.cardCounter+1,
-                lists: {
-                    ...state.lists,
-                   [action.listId]: {
-                        ...state.lists[action.listId],
-                        cards:[
-                            ...state.lists[action.listId].cards,
-                            newCard
-                        ]
-                    }
-                }
+                cards:[
+                    ...state.cards,
+                    newCard
+                ]
             };
         case actionTypes.MOVE_CARD:
             const originalList = {...state.lists[action.originalListId]}

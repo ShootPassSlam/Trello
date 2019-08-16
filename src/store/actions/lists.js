@@ -1,19 +1,17 @@
 import * as actionTypes from './actionTypes';
 
-export const addList = (name, lists) =>{
+export const addList = (name) =>{
     return {
         type: actionTypes.ADD_LIST,
-        listName: name,
-        listLength: Object.keys(lists).length +1
+        listName: name
     };
 };
 
-export const addCard = (cardName, cards, listId) =>{
+export const addCard = (cardName, listId) =>{
     return {
         type: actionTypes.ADD_CARD,
-        cardName: cardName,
-        cardLength: cards.length,
-        listId: listId
+        listId: listId,
+        cardName: cardName
     };
 };
 

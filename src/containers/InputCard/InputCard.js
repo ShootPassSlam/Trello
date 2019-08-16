@@ -15,7 +15,7 @@ class InputCard extends Component{
 
     handleSubmit = event => {
         event.preventDefault();
-        this.props.createNewCard(this.state.cardName, this.props.cards, this.props.listId);
+        this.props.createNewCard(this.state.cardName, this.props.listId);
         this.setState({cardName: ""});
     }
 

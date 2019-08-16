@@ -1,8 +1,13 @@
 import * as React from 'react'
 import { DragSource, DropTarget} from 'react-dnd'
+import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as listActions from '../../store/actions/lists';
 
 import styles from './Card.module.css';
 import Edit from '@material-ui/icons/Edit';
+import { findCard } from '../../shared/utility';
+
 
 const Types = {
     CARD: 'card'
@@ -22,8 +27,8 @@ const cardSource = {
         const didDrop = monitor.didDrop()
 
         if (!didDrop) {
-            const { card, draggedIndex, draggedListId } = props.findCard(droppedId)
-            props.moveCard(draggedListId, originalListId, draggedIndex, originalIndex, card)
+            const { card, draggedIndex, draggedListId } = findCard(props, droppedId)
+            this.props.onCardMoved(draggedListId, originalListId, draggedIndex, originalIndex, card)
         }
     },
 }
@@ -38,8 +43,8 @@ const cardTarget = {
         const { id: hoverId, index: hoverIndex, listId: hoverListId} = props
 
         if (draggedId !== hoverId) {
-            const { card, draggedIndex, draggedListId } = props.findCard(draggedId)
-            props.moveCard(draggedListId, hoverListId, draggedIndex, hoverIndex, card)
+            const { card, draggedIndex, draggedListId } = findCard(props, draggedId)
+            this.props.onCardMoved(draggedListId, hoverListId, draggedIndex, hoverIndex, card)
         }
     },
 }
@@ -73,7 +78,7 @@ class Card extends React.Component {
     }
 
     render() {
-        const { text, isDragging, connectDragSource, connectDropTarget, item} = this.props
+        const { title, isDragging, connectDragSource, connectDropTarget, item} = this.props
         let editIcon = (this.state.isHovered && !item) ? styles.FormEdit : styles.FormHidden
         let className = styles.CardContainer
         let classCard = styles.Card
@@ -101,11 +106,32 @@ class Card extends React.Component {
                     onMouseEnter={this.mouseIn} 
                     onMouseLeave={this.mouseOut} 
                     style={{height}}>
-                    <div className={classCard}>{text}</div>
-                    <span className={editIcon}><Edit className={styles.Edit} style={{ fontSize: 20 }}/></span>
+                    <Link
+                        to={{
+                            pathname: `/card/${title}`,
+                            state: { 
+                                modal: true,
+                                cardId: this.props.id,
+                                listId: this.props.listId
+                            }
+                        }} 
+                    style={{ textDecoration: 'none', color: 'black' }}>
+                        <div className={classCard}>{title}</div>
+                        <span className={editIcon}><Edit className={styles.Edit} style={{ fontSize: 20 }}/></span>
+                    </Link>
                 </div>)
         )
     }
 }
 
-export default DropTarget(Types.CARD, cardTarget, collectDrop)(DragSource(Types.CARD, cardSource, collectDrag)(Card))
+const mapDispatchToProps= dispatch => {
+    return {
+        onCardMoved: (originalListId, newListId, currentIndex, newIndex, card) => dispatch(listActions.moveCard(originalListId, newListId, currentIndex, newIndex, card)),
+    }
+}
+
+export default DropTarget(Types.CARD, cardTarget, collectDrop)(
+    DragSource(Types.CARD, cardSource, collectDrag)(
+        connect(null, mapDispatchToProps)(Card)
+    )
+)

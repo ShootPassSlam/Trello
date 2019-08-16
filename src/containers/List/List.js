@@ -7,6 +7,8 @@ import styles from './List.module.css';
 import { connect } from 'react-redux';
 import * as listActions from '../../store/actions/lists';
 
+import { findCardsOfList } from '../../shared/utility';
+
 const Types = {
     CARD: 'card',
     LIST: 'lists'
@@ -46,7 +48,7 @@ const listTarget = {
 
         if (draggedListId !== hoverListId) {
             const  draggedIndex = props.findList(draggedListId)
-            props.moveList(draggedIndex, hoverIndex)
+            this.props.onListMoved(draggedIndex, hoverIndex)
         }
     },
 }
@@ -67,7 +69,7 @@ const collectDrag = (connect, monitor) =>{
 class List extends React.Component{
     render() {
         const { connectDropTarget, connectDragSource, connectDropTargetCard, isOver, isOverlocally} = this.props
-        const { cards } = this.props
+        const listCards = findCardsOfList(this.props.cards, this.props.listId);
         
         let className = styles.List
         if(isOverlocally){
@@ -77,22 +79,19 @@ class List extends React.Component{
         let displayCards = <Card
                     id={"NOID"}
                     index={0}
-                    listId={this.props.index}
-                    findCard={this.findCard}
-                    moveCard={this.props.onCardMoved}
+                    listId={this.props.listId}
                     isEmptyList={true}
                     isOver={isOver}
                 />;
-        if(cards.length !== 0){
-            displayCards = cards.map(card => {
+        if(listCards.length !== 0){
+            displayCards = listCards.map( card => {
+                console.log("card", card)
                 return <Card
-                    key={card.id}
-                    id={`${card.id}`}
-                    text={card.text}
-                    index={cards.indexOf(card)}
-                    listId={this.props.index}
-                    findCard={this.findCard}
-                    moveCard={this.props.onCardMoved}
+                    key={card.cardId}
+                    id={card.cardId}
+                    title={card.title}
+                    index={this.props.cards.indexOf(card)}
+                    listId={this.props.listId}
                     isEmptyList={false}
                     isOver={isOver}
                 />;
@@ -106,43 +105,32 @@ class List extends React.Component{
                         <header>{this.props.listName}</header>
                         {displayCards}
                         <InputCard createNewCard={this.props.onCardAdded} 
-                            cards={this.props.cards} 
-                            listId={this.props.index}/>
+                            cards={this.props.allCards} 
+                            listId={this.props.listId}/>
                     </div>
                 )
             )    
         )
     }
+}
 
-    findCard = (id) => {
-        let card = []
-        let currentList
-        for (var key in this.props.lists){
-            const currentCard = (this.props.lists[key].cards.filter(c => `${c.id}` === id)[0])
-            if (currentCard){
-                card.push(currentCard)
-                currentList = key
-            }
-        }
-        return {
-            card: card[0],
-            draggedIndex: this.props.lists[currentList].cards.indexOf(card[0]),
-            draggedListId: currentList
-        }
-    }
+const mapStateToProps = state => {
+    return {
+        cards: state.cards,
+    };
 }
 
 const mapDispatchToProps= dispatch => {
     return {
-        onCardAdded: (cardName, cards, listId) => dispatch(listActions.addCard(cardName, cards, listId)),
-        onCardMoved: (originalListId, newListId, currentIndex, newIndex, card) => dispatch(listActions.moveCard(originalListId, newListId, currentIndex, newIndex, card))
+        onCardAdded: (cardName, listId) => dispatch(listActions.addCard(cardName, listId)),
+        onListMoved: (originalListId, newListId) => dispatch(listActions.moveList(originalListId, newListId))
     }
 }
 
 export default DropTarget(Types.LIST, listTarget, collectDrop)(
     DragSource(Types.LIST, listSource, collectDrag)(
         DropTarget(Types.CARD, cardTarget, collectDropCard)(
-            connect(null, mapDispatchToProps)(List)
+            connect(mapStateToProps, mapDispatchToProps)(List)
         )
     )
 )

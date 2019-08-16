@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
+import * as listActions from '../../store/actions/lists';
 
 import styles from './InputList.module.css';
 import Clear from '@material-ui/icons/Clear';
@@ -15,7 +17,7 @@ class InputList extends Component{
 
     handleSubmit = event => {
         event.preventDefault();
-        this.props.createNewList(this.state.listName, this.props.lists);
+        this.props.onListAdded(this.state.listName);
         this.setState({listName: ""});
     }
 
@@ -49,7 +51,7 @@ class InputList extends Component{
 
     render (){
         const formIsValid = this.state.listName.length > 0
-        const listText = Object.keys(this.props.lists).length> 0 ? '+ Add another list' : '+ Add a list';
+        const listText = this.props.listCounter > 0 ? '+ Add another list' : '+ Add a list';
         let form  = (
                     <div ref={node => { this.wrapperRef = node; }} className={styles.InputList}>
                         <form onSubmit={this.handleSubmit}>
@@ -71,4 +73,16 @@ class InputList extends Component{
     }
 }
 
-export default InputList;
+const mapStateToProps = state => {
+    return {
+        listCounter: state.listCounter,
+    };
+}
+
+const mapDispatchToProps= dispatch => {
+    return {
+        onListAdded: (listName) => dispatch(listActions.addList(listName)),
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(InputList);

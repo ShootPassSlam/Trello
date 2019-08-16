@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
+import {BrowserRouter, Route} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 import listReducer from './store/reducers/lists';
@@ -15,7 +15,9 @@ const store = createStore(
 
 const app = (
     <Provider store={store}>
-            <App />
+        <BrowserRouter>
+            <Route component={App} />
+        </BrowserRouter>
     </Provider>
 )
 
