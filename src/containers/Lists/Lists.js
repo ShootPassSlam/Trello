@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import styles from './Lists.module.css';
 import List from '../List/List';
 import InputList from '../InputList/InputList';
-import * as listActions from '../../store/actions/lists';
 
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext, DropTarget } from 'react-dnd';
@@ -26,13 +25,11 @@ class Lists extends Component {
 
     render(){
         const { connectDropTarget} = this.props
-        const displayLists = this.props.lists.map( list => {
+        const displayLists = this.props.lists.map( (list, key) => {
                 return <List 
-                    key={list.listId}
-                    index={list.listId}
-                    listId={list.listId}
+                    key={key}
+                    listIndex={key}
                     listName={list.text}
-                    list={list}
                     />;
             })
 

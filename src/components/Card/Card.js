@@ -1,12 +1,9 @@
-import * as React from 'react'
+import React, { Component } from 'react';
 import { DragSource, DropTarget} from 'react-dnd'
 import {Link} from 'react-router-dom';
-import { connect } from 'react-redux';
-import * as listActions from '../../store/actions/lists';
 
 import styles from './Card.module.css';
 import Edit from '@material-ui/icons/Edit';
-import { findCard } from '../../shared/utility';
 
 
 const Types = {
@@ -16,19 +13,19 @@ const Types = {
 const cardSource = {
     beginDrag(props) {
         return {
-            id: props.id,
-            originalIndex: props.index,
-            originalListId: props.listId
+            originalCard: props.card,
+            originalCardIndex: props.cardIndex,
+            originalListIndex: props.listIndex
         }
     },
 
     endDrag(props, monitor) {
-        const { id: droppedId, originalIndex, originalListId} = monitor.getItem()
+        const {originalCardIndex, originalListIndex, originalCard} = monitor.getItem()
         const didDrop = monitor.didDrop()
 
         if (!didDrop) {
-            const { card, draggedIndex, draggedListId } = findCard(props, droppedId)
-            this.props.onCardMoved(draggedListId, originalListId, draggedIndex, originalIndex, card)
+            const { card, draggedCardIndex, draggedListIndex } = props.findCard(originalCard)
+            props.cardMove(draggedListIndex, originalListIndex, draggedCardIndex, originalCardIndex, card)
         }
     },
 }
@@ -39,12 +36,12 @@ const cardTarget = {
     },
 
     hover(props, monitor) {
-        const { id: draggedId} = monitor.getItem()
-        const { id: hoverId, index: hoverIndex, listId: hoverListId} = props
+        const { originalCard } = monitor.getItem()
+        const { cardIndex: hoverCardIndex, listIndex: hoverListIndex, card: hoverCard} = props
 
-        if (draggedId !== hoverId) {
-            const { card, draggedIndex, draggedListId } = findCard(props, draggedId)
-            this.props.onCardMoved(draggedListId, hoverListId, draggedIndex, hoverIndex, card)
+        if (originalCard !== hoverCard) {
+            const { card, draggedCardIndex, draggedListIndex } = props.findCard(originalCard)
+            props.cardMove(draggedListIndex, hoverListIndex, draggedCardIndex, hoverCardIndex, card)
         }
     },
 }
@@ -63,7 +60,7 @@ const collectDrag = (connect, monitor) =>{
     }
 }
 
-class Card extends React.Component {
+class Card extends Component {
 
     state = {
         isHovered: false
@@ -85,7 +82,7 @@ class Card extends React.Component {
         let height
 
         if(isDragging){
-            className=styles.CardDragging
+            className = styles.CardDragging
             classCard = styles.CardDragging
             height = this.myElement.clientHeight
             editIcon = styles.NoCardsPlaceholder
@@ -124,14 +121,7 @@ class Card extends React.Component {
     }
 }
 
-const mapDispatchToProps= dispatch => {
-    return {
-        onCardMoved: (originalListId, newListId, currentIndex, newIndex, card) => dispatch(listActions.moveCard(originalListId, newListId, currentIndex, newIndex, card)),
-    }
-}
 
 export default DropTarget(Types.CARD, cardTarget, collectDrop)(
-    DragSource(Types.CARD, cardSource, collectDrag)(
-        connect(null, mapDispatchToProps)(Card)
-    )
+    DragSource(Types.CARD, cardSource, collectDrag)(Card) 
 )

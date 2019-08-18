@@ -15,13 +15,13 @@ export const addCard = (cardName, listId) =>{
     };
 };
 
-export const moveCard = (originalListId, newListId, currentIndex, newIndex, card) => {
+export const moveCard = (draggedListIndex, hoverListIndex, draggedCardIndex, hoverCardIndex, card) => {
     return {
         type: actionTypes.MOVE_CARD,
-        originalListId: originalListId,
-        newListId: newListId,
-        currentIndex: currentIndex,
-        newIndex: newIndex,
+        draggedListIndex: draggedListIndex,
+        hoverListIndex: hoverListIndex,
+        draggedCardIndex: draggedCardIndex,
+        hoverCardIndex: hoverCardIndex,
         card: card
     };
 };

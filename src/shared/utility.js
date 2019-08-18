@@ -1,10 +1,12 @@
-export const findCard = (props, id) => {
-    console.log("props", props);
-    console.log("id", id);
+export const findCard = (cards, index) => {
+    const foundCard = cards[index];
+    return {
+        card: foundCard,
+        draggedIndex: index,
+        draggedListId: foundCard.listIndex
+    }
 };
 
-export const findCardsOfList = (cards, listId) => {
-    console.log("cards", cards);
-    console.log("listId", listId);
-    return cards.filter( card => card.listId === listId)
+export const findCardsOfList = (cards, listIndex) => {
+    return cards.filter( card => card.listIndex === listIndex)
 };

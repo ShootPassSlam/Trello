@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { Component } from 'react';
 import { DragSource, DropTarget} from 'react-dnd'
 import Card from '../../components/Card/Card'
 import InputCard from '../InputCard/InputCard';
@@ -66,10 +66,20 @@ const collectDrag = (connect, monitor) =>{
     }
 }
 
-class List extends React.Component{
+class List extends Component{
+
+    findCardHandler = (card) => {
+        return {
+            card: card,
+            draggedCardIndex: this.props.cards.indexOf(card),
+            draggedListIndex: this.props.cards[this.props.cards.indexOf(card)].listIndex
+        }
+    };
+
+
     render() {
         const { connectDropTarget, connectDragSource, connectDropTargetCard, isOver, isOverlocally} = this.props
-        const listCards = findCardsOfList(this.props.cards, this.props.listId);
+        let listCards = findCardsOfList(this.props.cards, this.props.listIndex);
         
         let className = styles.List
         if(isOverlocally){
@@ -79,19 +89,20 @@ class List extends React.Component{
         let displayCards = <Card
                     id={"NOID"}
                     index={0}
-                    listId={this.props.listId}
+                    listIndex={this.props.listIndex}
                     isEmptyList={true}
                     isOver={isOver}
                 />;
-        if(listCards.length !== 0){
-            displayCards = listCards.map( card => {
-                console.log("card", card)
+        if(listCards.length > 0){
+            displayCards = listCards.map( (card,key) => {
                 return <Card
-                    key={card.cardId}
-                    id={card.cardId}
+                    key={key}
+                    cardIndex={this.props.cards.indexOf(card)}
+                    listIndex={this.props.listIndex}
                     title={card.title}
-                    index={this.props.cards.indexOf(card)}
-                    listId={this.props.listId}
+                    card={card}
+                    findCard={this.findCardHandler}
+                    cardMove={this.props.onCardMoved}
                     isEmptyList={false}
                     isOver={isOver}
                 />;
@@ -105,8 +116,8 @@ class List extends React.Component{
                         <header>{this.props.listName}</header>
                         {displayCards}
                         <InputCard createNewCard={this.props.onCardAdded} 
-                            cards={this.props.allCards} 
-                            listId={this.props.listId}/>
+                            cards={this.props.cards} 
+                            listIndex={this.props.listIndex}/>
                     </div>
                 )
             )    
@@ -122,8 +133,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps= dispatch => {
     return {
-        onCardAdded: (cardName, listId) => dispatch(listActions.addCard(cardName, listId)),
-        onListMoved: (originalListId, newListId) => dispatch(listActions.moveList(originalListId, newListId))
+        onCardAdded: (cardName, listIndex) => dispatch(listActions.addCard(cardName, listIndex)),
+        onCardMoved: (draggedListIndex, hoverListIndex, draggedCardIndex, hoverCardIndex, card) => dispatch(listActions.moveCard(draggedListIndex, hoverListIndex, draggedCardIndex, hoverCardIndex, card)),
+        onListMoved: (originalListIndex, newListIndex) => dispatch(listActions.moveList(originalListIndex, newListIndex))
     }
 }
 

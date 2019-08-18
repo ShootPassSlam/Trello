@@ -5,71 +5,61 @@ const initialState = {
     cardCounter: 8,
     lists: [
         {
-            listId:1,
             text: "Game One",
         },
         {
-            listId:2,
             text: "Game Two"
         }
     ],
     cards:[
         {
-            cardId: 1,
-            listId: 1,
+            listIndex: 0,
             title: 'Come up with a great game idea',
             description: "first Description"
         },
         {
-            cardId: 2,
-            listId: 1,
+            listIndex: 0,
             title: 'Write a solid spec outlining the idea',
             description: ""
         },
         {
-            cardId: 3,
-            listId: 1,
+            listIndex: 0,
             title: 'Build and MVP Prototype',
             description: ""
         },
         {
-            cardId: 4,
-            listId: 1,
+            listIndex: 0,
             title: 'Iterate on the prototype until fun',
             description: ""
         },
         {
-            cardId: 5,
-            listId: 1,
+            listIndex: 0,
             title: 'Launch and gather player data',
             description: ""
         },
         {
-            cardId: 6,
-            listId: 1,
+            listIndex: 0,
             title: 'Iterate based on player data',
             description: ""
         },
         {
-            cardId: 7,
-            listId: 1,
+            listIndex: 0,
             title: 'PROFIT',
             description: ""
         },
         {
-            cardId: 8,
-            listId: 2,
+            listIndex: 1,
             title: 'Do it all again',
             description: ""
         }
     ],
     comments:[
         {
-            cardid:1,
+            cardIndex:0,
             text: "First Comment",
         },
         {
-            cardid:1,
+            cardIndex:0,
             text: "Second Comment",
         },
         {},
@@ -104,31 +94,15 @@ const reducer = (state=initialState, action) =>{
                 ]
             };
         case actionTypes.MOVE_CARD:
-            const originalList = {...state.lists[action.originalListId]}
-            const originalListCards = [...originalList.cards]
-            const newListy = {...state.lists[action.newListId]}
-            let newListCards = [...newListy.cards]
-            originalListCards.splice(action.currentIndex, 1)
-            if(action.originalListId === action.newListId){
-                originalListCards.splice(action.newIndex, 0, action.card)
-                newListCards = originalListCards
-            }
-            else{
-                newListCards.splice(action.newIndex, 0, action.card)
-            }
+            let newCards = [
+                ...state.cards
+            ]
+            action.card.listIndex = action.hoverListIndex;
+            newCards.splice(action.draggedCardIndex,1);
+            newCards.splice(action.hoverCardIndex,0, action.card);
             return{
                 ...state,
-                lists: {
-                    ...state.lists,
-                    [action.originalListId]:{
-                        ...state.lists[action.originalListId],
-                        cards: originalListCards
-                    },
-                    [action.newListId]:{
-                        ...state.lists[action.newListId],
-                        cards: newListCards
-                    }
-                }
+                cards: [...newCards]
             };
         case actionTypes.MOVE_LIST:
             [action.originalListId, action.newListId] = [action.newListId, action.originalListId]

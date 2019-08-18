@@ -9,8 +9,6 @@ import { connect } from 'react-redux';
 class Modal extends Component {
 
     render(){
-        console.log("Props for a card:", this.props)
-        console.log(this.props.location.state.cardId)
 
         const back = e => {
             e.stopPropagation();
