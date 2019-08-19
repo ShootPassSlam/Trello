@@ -12,6 +12,7 @@ const Types = {
 
 const cardSource = {
     beginDrag(props) {
+        console.log(props);
         return {
             originalCard: props.card,
             originalCardIndex: props.cardIndex,
@@ -75,16 +76,16 @@ class Card extends Component {
     }
 
     render() {
-        const { title, isDragging, connectDragSource, connectDropTarget, item} = this.props
-        let editIcon = (this.state.isHovered && !item) ? styles.FormEdit : styles.FormHidden
-        let className = styles.CardContainer
-        let classCard = styles.Card
+        const { title, isOver, connectDragSource, connectDropTarget, item} = this.props
+        let editIcon = (this.state.isHovered && !item) ? styles.FormEdit : styles.FormHidden;
+        let className = styles.CardContainer;
+        let classCard = styles.Card;
         let height
 
-        if(isDragging){
+        if(item && item.originalCard === this.props.card && isOver){
             className = styles.CardDragging
             classCard = styles.CardDragging
-            height = this.myElement.clientHeight
+            height = 50
             editIcon = styles.NoCardsPlaceholder
         }
 

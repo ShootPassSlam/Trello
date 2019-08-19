@@ -74,7 +74,7 @@ const initialState = {
 const reducer = (state=initialState, action) =>{
     switch(action.type){
         case actionTypes.ADD_LIST:
-            const newList = {listId: state.listCounter+1, text: action.listName};
+            const newList = {listIndex: state.listCounter+1, text: action.listName};
             return{
                 ...state,
                 listCounter: state.listCounter+1,
@@ -84,7 +84,7 @@ const reducer = (state=initialState, action) =>{
                 ]
             };
         case actionTypes.ADD_CARD:
-            const newCard = {cardId:state.cardCounter+1, listId:action.listId, title: action.cardName, description:""}
+            const newCard = {listIndex:action.listIndex, title: action.cardName, description:""}
             return{
                 ...state,
                 cardCounter: state.cardCounter+1,

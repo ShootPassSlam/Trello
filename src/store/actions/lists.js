@@ -7,10 +7,10 @@ export const addList = (name) =>{
     };
 };
 
-export const addCard = (cardName, listId) =>{
+export const addCard = (cardName, listIndex) =>{
     return {
         type: actionTypes.ADD_CARD,
-        listId: listId,
+        listIndex: listIndex,
         cardName: cardName
     };
 };
