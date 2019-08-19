@@ -12,7 +12,6 @@ const Types = {
 
 const cardSource = {
     beginDrag(props) {
-        console.log(props);
         return {
             originalCard: props.card,
             originalCardIndex: props.cardIndex,
