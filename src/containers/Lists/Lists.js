@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'; 
+import * as listActions from '../../store/actions/lists';
+
 import styles from './Lists.module.css';
 import List from '../List/List';
 import InputList from '../InputList/InputList';
@@ -23,6 +25,10 @@ const collectDropList = (connect, monitor) =>{
 
 class Lists extends Component {
 
+    findListHandler = (list) => {
+        return this.props.lists.indexOf(list);
+    };
+
     render(){
         const { connectDropTarget} = this.props
         const displayLists = this.props.lists.map( (list, key) => {
@@ -30,6 +36,9 @@ class Lists extends Component {
                     key={key}
                     listIndex={key}
                     listName={list.text}
+                    list ={list}
+                    findList={this.findListHandler}
+                    listMove={this.props.onListMoved}
                     />;
             })
 
@@ -48,8 +57,14 @@ const mapStateToProps = state => {
     };
 }
 
+const mapDispatchToProps= dispatch => {
+    return {
+        onListMoved: (originalListIndex, newListIndex) => dispatch(listActions.moveList(originalListIndex, newListIndex))
+    }
+}
+
 export default DragDropContext(HTML5Backend)(
     DropTarget(Types.LIST, listTarget, collectDropList)(
-        connect(mapStateToProps)(Lists)
+        connect(mapStateToProps, mapDispatchToProps)(Lists)
     )
 )

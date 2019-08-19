@@ -26,10 +26,10 @@ export const moveCard = (draggedListIndex, hoverListIndex, draggedCardIndex, hov
     };
 };
 
-export const moveList = (originalListId, newListId) => {
+export const moveList = (originalListIndex, newListIndex) => {
     return {
         type: actionTypes.MOVE_LIST,
-        originalListId: originalListId,
-        newListId: newListId
+        originalListIndex: originalListIndex,
+        newListIndex: newListIndex
     };
 };

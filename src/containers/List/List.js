@@ -28,8 +28,8 @@ const collectDropCard = (connect, monitor) =>{
 const listSource = {
     beginDrag(props) {
         return {
-            listId: props.listId,
-            index: props.index
+            listIndex: props.listIndex,
+            originalList: props.list
         }
     },
 
@@ -43,12 +43,12 @@ const listTarget = {
     },
 
     hover(props, monitor) {
-        const { listId: draggedListId} = monitor.getItem()
-        const { listId: hoverListId, index: hoverIndex } = props
+        const { originalList} = monitor.getItem()
+        const { listIndex: hoverListIndex, list: hoverList} = props
 
-        if (draggedListId !== hoverListId) {
-            const  draggedIndex = props.findList(draggedListId)
-            this.props.onListMoved(draggedIndex, hoverIndex)
+        if (originalList !== hoverList) {
+            const draggedListIndex = props.findList(originalList);
+            props.listMove(draggedListIndex, hoverListIndex);
         }
     },
 }
@@ -134,8 +134,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps= dispatch => {
     return {
         onCardAdded: (cardName, listIndex) => dispatch(listActions.addCard(cardName, listIndex)),
-        onCardMoved: (draggedListIndex, hoverListIndex, draggedCardIndex, hoverCardIndex, card) => dispatch(listActions.moveCard(draggedListIndex, hoverListIndex, draggedCardIndex, hoverCardIndex, card)),
-        onListMoved: (originalListIndex, newListIndex) => dispatch(listActions.moveList(originalListIndex, newListIndex))
+        onCardMoved: (draggedListIndex, hoverListIndex, draggedCardIndex, hoverCardIndex, card) => dispatch(listActions.moveCard(draggedListIndex, hoverListIndex, draggedCardIndex, hoverCardIndex, card))
     }
 }
 
