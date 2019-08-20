@@ -99,6 +99,7 @@ class List extends Component{
                     key={key}
                     cardIndex={this.props.cards.indexOf(card)}
                     listIndex={this.props.listIndex}
+                    id={card.id}
                     title={card.title}
                     card={card}
                     findCard={this.findCardHandler}

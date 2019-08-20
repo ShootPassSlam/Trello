@@ -5,6 +5,8 @@ import {Link} from 'react-router-dom';
 import styles from './Card.module.css';
 import Edit from '@material-ui/icons/Edit';
 
+import CardDetail from '../../containers/CardDetail/CardDetail';
+
 
 const Types = {
     CARD: 'card'
@@ -75,7 +77,7 @@ class Card extends Component {
     }
 
     render() {
-        const { title, isOver, connectDragSource, connectDropTarget, item} = this.props
+        const { id, title, isOver, connectDragSource, connectDropTarget, item} = this.props
         let editIcon = (this.state.isHovered && !item) ? styles.FormEdit : styles.FormHidden;
         let className = styles.CardContainer;
         let classCard = styles.Card;
@@ -105,13 +107,9 @@ class Card extends Component {
                     style={{height}}>
                     <Link
                         to={{
-                            pathname: `/card/${title}`,
-                            state: { 
-                                modal: true,
-                                cardId: this.props.id,
-                                listId: this.props.listId
-                            }
-                        }} 
+                            pathname: `/card/${id}`,
+                            state: { modal: true }
+                        }}
                     style={{ textDecoration: 'none', color: 'black' }}>
                         <div className={classCard}>{title}</div>
                         <span className={editIcon}><Edit className={styles.Edit} style={{ fontSize: 20 }}/></span>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.scss';
 import {Route, Switch} from 'react-router-dom';
 import Board from './containers/Board/Board';
-import CardEdit from './containers/CardEdit/CardEdit';
+import CardDetail from './containers/CardDetail/CardDetail';
 import Modal from './components/UI/Modal/Modal';
 
 class App extends Component {
@@ -36,9 +36,9 @@ class App extends Component {
       <div className="App">
         <Switch location={isModal ? this.previousLocation : location}>
             <Route path='/' exact component={Board} />
-            <Route path="/card/:id" component={Modal} />
+            <Route path="/card/:id" render={ props => [<Modal {...props} key={1} modalType={CardDetail}/>,<Board {...props} key={2}/>]}/>
         </Switch>
-        {isModal ? <Route path="/card/:id" component={Modal} /> : null}
+        {isModal ? <Route path="/card/:id" render={ props => <Modal {...props} modalType={CardDetail}/>}/> : null}
       </div>
     );
   }

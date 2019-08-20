@@ -13,53 +13,69 @@ const initialState = {
     ],
     cards:[
         {
+            id:"card1",
             listIndex: 0,
             title: 'Come up with a great game idea',
-            description: "first Description"
+            description: "first Description",
+            comments:["comment1", "comment2"]
         },
         {
+            id:"card2",
             listIndex: 0,
             title: 'Write a solid spec outlining the idea',
-            description: ""
+            description: "",
+            comments:[]
         },
         {
+            id:"card3",
             listIndex: 0,
             title: 'Build and MVP Prototype',
-            description: ""
+            description: "",
+            comments:[]
         },
         {
+            id:"card4",
             listIndex: 0,
             title: 'Iterate on the prototype until fun',
-            description: ""
+            description: "",
+            comments:[]
         },
         {
+            id:"card5",
             listIndex: 0,
             title: 'Launch and gather player data',
-            description: ""
+            description: "",
+            comments:[]
         },
         {
+            id:"card6",
             listIndex: 0,
             title: 'Iterate based on player data',
-            description: ""
+            description: "",
+            comments:[]
         },
         {
+            id:"card7",
             listIndex: 0,
             title: 'PROFIT',
-            description: ""
+            description: "",
+            comments:[]
         },
         {
+            id:"card8",
             listIndex: 1,
             title: 'Do it all again',
-            description: ""
+            description: "",
+            comments:[]
         }
     ],
     comments:[
         {
-            cardIndex:0,
+            Id:"comment1",
             text: "First Comment",
         },
         {
-            cardIndex:0,
+            Id:"comment2",
             text: "Second Comment",
         },
         {},
@@ -84,7 +100,14 @@ const reducer = (state=initialState, action) =>{
                 ]
             };
         case actionTypes.ADD_CARD:
-            const newCard = {listIndex:action.listIndex, title: action.cardName, description:""}
+            const newCard = {
+                id:`card${state.cardCounter+1}`, 
+                listIndex:action.listIndex, 
+                title: action.cardName, 
+                description:"", 
+                comments:[]
+            }
+
             return{
                 ...state,
                 cardCounter: state.cardCounter+1,

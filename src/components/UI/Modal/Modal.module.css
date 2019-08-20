@@ -4,13 +4,14 @@
     z-index: 500;
     background-color: #f5f6f7;
     border-radius: 2px;
-    margin: 48px 0 80px;
+    margin: 0 0 80px;
     overflow: hidden;
-    width: 70%;
-    left: 15%;
+    width: 90%;
+    left: 5%;
     top: 10%;
     box-sizing: border-box;
     transition: all 0.3s ease-out;
+    min-height: 600px;
 }
 
 @media (max-width: 500px) {
