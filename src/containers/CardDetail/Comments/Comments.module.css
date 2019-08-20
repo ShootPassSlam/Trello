@@ -1,0 +1,131 @@
+.commentTitle{
+    margin: 4px 0 0;
+    padding: 4px 0 0;
+}
+
+.commentTitle h3{
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.commentsContainer{
+    margin: 12px 40px 8px 42px;
+    min-height: 32px;
+    position: relative;
+    z-index: 1;
+    text-align: left;
+}
+
+.commentIcon{
+    left: -45px;
+    position: absolute;
+    top: 4px;
+}
+
+.commentUserIcon{
+    margin: 12px 0px 8px 0px;
+    left: -40px;
+    position: absolute;
+}
+
+.commentFrame{
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px -1px rgba(9,30,66,.25), 0 0 0 1px rgba(9,30,66,.08);
+    margin: 12px 4px 12px 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.commentBox{
+    padding: 8px 12px;
+    position: relative;
+}
+
+.commentBoxInput{
+    max-height:150px;
+    box-shadow: 0 2px 3px #ccc;
+    border:none;
+    border-radius: 5px;
+    text-indent: 5px;
+    font-size: 16px;
+    resize: vertical;
+    padding: 10px 5px;
+    margin:5px 0px;
+    overflow: auto;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    resize: none; /*remove the resize handle on the bottom right*/
+}
+
+.comments{
+    list-style-type: none;
+}
+
+.commentInfo{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.commentInfo span{
+    margin-right: 5px;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-top:8px;
+}
+
+.buttons a{
+    color: #6b778c;
+    text-decoration: underline;
+    font-size: 12px;
+    margin: 0px 3px;
+}
+
+.commentListItem{
+    padding: 8px 0;
+}
+
+.commentAuthor{
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.commentAuthorIcon{
+    left: 20px;
+    position: absolute;
+}
+
+.commentDate{
+    text-decoration: none;
+    color: #6b778c;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.comment{
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px -1px rgba(9,30,66,.25), 0 0 0 1px rgba(9,30,66,.08);
+    box-sizing: border-box;
+    clear: both;
+    display: inline-block;
+    margin: 4px 2px 4px 0;
+    padding: 8px 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.commentContainer{
+    display: flex;   
+}

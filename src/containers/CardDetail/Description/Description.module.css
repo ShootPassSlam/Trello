@@ -1,0 +1,40 @@
+.descriptionTitle{
+    margin: 4px 0 0;
+    padding: 4px 0 0;
+}
+
+.descriptionTitle h3{
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.description{
+    margin: 12px 40px 8px 42px;
+    min-height: 32px;
+    position: relative;
+    z-index: 1;
+    text-align: left;
+}
+
+.descriptionIcon{
+    left: -45px;
+    position: absolute;
+    top: 4px;
+}
+
+.descriptionField{
+    background-color: rgba(9,30,66,.04);
+    box-shadow: none;
+    border: none;
+    border-radius: 3px;
+    display: block;
+    min-height: 40px;
+    padding: 8px 12px;
+    text-decoration: none;
+    margin-top: 10px;
+    color: #172b4d;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+}

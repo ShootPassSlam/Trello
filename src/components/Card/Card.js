@@ -5,9 +5,6 @@ import {Link} from 'react-router-dom';
 import styles from './Card.module.css';
 import Edit from '@material-ui/icons/Edit';
 
-import CardDetail from '../../containers/CardDetail/CardDetail';
-
-
 const Types = {
     CARD: 'card'
 }

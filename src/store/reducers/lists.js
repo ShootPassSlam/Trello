@@ -71,19 +71,17 @@ const initialState = {
     ],
     comments:[
         {
-            Id:"comment1",
+            id:"comment1",
+            user: "Dominic Scotto",
             text: "First Comment",
+            date: Date.now()
         },
         {
-            Id:"comment2",
+            id:"comment2",
+            user: "Dominic Scotto",
             text: "Second Comment",
-        },
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
+            date: Date.now()
+        }
     ]
 };
 
