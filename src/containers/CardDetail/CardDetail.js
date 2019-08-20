@@ -8,6 +8,7 @@ import * as listActions from '../../store/actions/lists';
 
 import Web from '@material-ui/icons/Web';
 import Close from '@material-ui/icons/Close';
+import Subject from '@material-ui/icons/Subject';
 
 class CardDetail extends Component {
 
@@ -33,13 +34,26 @@ class CardDetail extends Component {
                         <div className={styles.windowTitle}>
                             <h2>{card.title}</h2>
                         </div>
-                        <div>in list {list.text}</div>
+                        <div className={styles.windowHeaderList}>
+                            in list <span>{list.text}</span>
+                        </div>
                     </div>
                     <div className={styles.windowMain}>
-                        <div></div>
+                        <div className={styles.gutter}></div>
+                        <div className={styles.windowDescription}>
+                            <span><Subject className={styles.windowDescriptionIcon} style={{ fontSize: 24 }}/></span>
+                            <div className={styles.windowTitle}>
+                                <h2>Description</h2>
+                            </div>
+                            <div>
+                                <a className={styles.windowDescriptionField} href="#">Add a more detailed description…</a>
+                            </div>
+                        </div>
                         <div></div>
                     </div>
-                    <div>Side Bar</div>
+                    <div className={styles.windowSidebar} >
+                        <div>ADD TO CARD</div>
+                    </div>
                 </div>
             </Aux>
         );
