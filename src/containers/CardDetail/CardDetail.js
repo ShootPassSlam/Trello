@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styles from './CardDetail.module.css';
 import Aux from '../../hoc/Aux';
+import {Redirect} from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import * as listActions from '../../store/actions/lists';
@@ -13,6 +14,9 @@ class CardDetail extends Component {
     render(){
 
         let card = this.props.cards.find( card => card.id == this.props.match.params.id);
+        if(!card){
+            return <Redirect to="/" />;  
+        }
         let list = this.props.lists[card.listIndex];  
 
         const back = e => {

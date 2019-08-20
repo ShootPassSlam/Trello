@@ -3,7 +3,8 @@
     min-height: 32px;
     position: relative;
     z-index: 1;
-
+    text-align: left;
+    word-break: break-word;
 }
 
 .windowHeaderIcon{
@@ -14,7 +15,13 @@
 
 .windowTitle{
     margin: 4px 0 0;
-    padding: 8px 0 0;
+    padding: 4px 0 0;
+}
+
+.windowTitle h2{
+    margin: 0px;
+    font-size: 20px;
+    font-weight: 600;
 }
 
 .windowMain{
