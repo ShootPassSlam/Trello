@@ -40,7 +40,7 @@ class CardDetail extends Component {
                     </div>
                     <div className={styles.windowMain}>
                         <div className={styles.gutter}></div>
-                        <Description/>
+
                         <Comments commentIds={card.comments} cardId={card.id}/>
                     </div>
                     <div className={styles.windowSidebar} >
