@@ -3,6 +3,7 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
     listCounter: 2,
     cardCounter: 8,
+    commentCounter: 2,
     lists: [
         {
             text: "Game One",
@@ -169,17 +170,39 @@ const reducer = (state=initialState, action) =>{
             let cardWithComment = state.cards.find( card => card.id === action.cardId);
             const indexOfComment = cardWithComment.comments.indexOf(comments[action.commentIndex].id);
             cardWithComment.comments.splice(indexOfComment,1);
+            state.cards[action.cardId]=cardWithComment;
             comments.splice(action.commentIndex,1);
             return{
                 ...state,
+                commentCounter: state.commentCounter-1,
                 cards:[
-                    ...state.cards,
-                    cardWithComment
+                    ...state.cards
                 ],
                 comments:[
                     ...comments
                 ]
             };
+        case actionTypes.ADD_COMMENT:
+            const newComment = { 
+                id:`comment${state.commentCounter+1}`, 
+                user: action.author, 
+                text: action.commentText, 
+                date: Date.now()
+            }
+            let cardWithNewComment = state.cards.find( card => card.id === action.cardId);
+            cardWithNewComment.comments.push(newComment.id);
+            state.cards[action.cardId]=cardWithNewComment;
+            state.comments.push(newComment)
+            return{
+                ...state,
+                commentCounter: state.commentCounter+1,
+                cards:[
+                    ...state.cards
+                ],
+                comments:[
+                    ...state.comments
+                ]
+            }
         default:
             return state;   
     }

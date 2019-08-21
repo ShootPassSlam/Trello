@@ -49,3 +49,12 @@ export const deleteComment = (commentIndex, cardId) => {
         cardId: cardId
     };
 };
+
+export const newComment = (commentText, author, cardId) => {
+    return {
+        type: actionTypes.ADD_COMMENT,
+        commentText: commentText,
+        author: author,
+        cardId: cardId
+    };
+};

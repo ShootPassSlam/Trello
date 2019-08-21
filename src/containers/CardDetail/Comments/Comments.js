@@ -34,7 +34,8 @@ class Comments extends Component {
                                 comment={comment} 
                                 commentIndex={this.props.comments.indexOf(comment)} 
                                 cardId={this.props.cardId}
-                                handleDelete={this.props.onDeleteComment}/>
+                                handleDelete={this.props.onDeleteComment}
+                                newComment={false}/>
                         </li>
                     );
                 });
@@ -48,13 +49,9 @@ class Comments extends Component {
                         <h3>Activity</h3>
                     </div>
                     <span className={styles.commentUserIcon}>P</span>
-                    <form>
-                        <div className={styles.commentFrame}>
-                            <div className={styles.commentBox}>
-                                <textarea className={styles.commentBoxInput} placeholder="Write a comment…"></textarea>
-                            </div>
-                        </div>
-                    </form>
+                    <InputComment 
+                        cardId={this.props.cardId}
+                        newComment={true}/>
                 </div>
                 <ul className={styles.comments}>
                     {comments}
@@ -72,7 +69,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps= dispatch => {
     return {
-        onDeleteComment: (commentIndex, cardId) => dispatch(listActions.deleteComment(commentIndex, cardId)),
+        onDeleteComment: (commentIndex, cardId) => dispatch(listActions.deleteComment(commentIndex, cardId))
     }
 }
 

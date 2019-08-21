@@ -18,7 +18,11 @@ class InputComment extends Component{
 
     handleSubmit = event => {
         event.preventDefault();
-        this.props.onUpdateComment(this.props.commentIndex, this.state.commentText);
+        if(this.props.newComment){
+            this.props.onNewComment(this.state.commentText, "Placeholder", this.props.cardId);
+        }else{
+            this.props.onUpdateComment(this.props.commentIndex, this.state.commentText);
+        }
         this.setState({inputActive: false});
     }
 
@@ -44,7 +48,9 @@ class InputComment extends Component{
 
     componentDidMount() {
         document.addEventListener('mousedown', this.handleClickOutside);
-        this.setState({commentText: this.props.comment.text});
+        if(!this.props.newComment){
+            this.setState({commentText: this.props.comment.text});
+        }
     }
 
     componentWillUnmount() {
@@ -71,18 +77,30 @@ class InputComment extends Component{
         );
 
         if(!this.state.inputActive){
-            form = (
-                <Aux>
-                    <div className={styles.commentContainer}>
-                        <div className={styles.comment}>{this.props.comment.text}</div>
-                    </div>
-                    <div className={styles.buttons}>
-                        <button onClick={this.inputActiveHandler}>Edit</button>
-                        <span>-</span>
-                        <button onClick={this.handleDelete}>Delete</button>
-                    </div>   
-                </Aux>
-            );
+            if(this.props.newComment){
+                form=(
+                    <form>
+                        <div className={styles.commentFrame}>
+                            <div className={styles.commentBox}>
+                                <textarea className={styles.commentBoxInput} placeholder="Write a comment…" onClick={this.inputActiveHandler}></textarea>
+                            </div>
+                        </div>
+                    </form>
+                );
+            }else{
+                form = (
+                    <Aux>
+                        <div className={styles.commentContainer}>
+                            <div className={styles.comment}>{this.props.comment.text}</div>
+                        </div>
+                        <div className={styles.buttons}>
+                            <button onClick={this.inputActiveHandler}>Edit</button>
+                            <span>-</span>
+                            <button onClick={this.handleDelete}>Delete</button>
+                        </div>   
+                    </Aux>
+                );
+            }
         }
 
         return form;
@@ -91,7 +109,8 @@ class InputComment extends Component{
 
 const mapDispatchToProps= dispatch => {
     return {
-        onUpdateComment: (commentIndex, commentText) => dispatch(listActions.updateComment(commentIndex, commentText))
+        onUpdateComment: (commentIndex, commentText) => dispatch(listActions.updateComment(commentIndex, commentText)),
+        onNewComment: (commentText, author, cardId) => dispatch(listActions.newComment(commentText, author, cardId)),
     }
 }
 
