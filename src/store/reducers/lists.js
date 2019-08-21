@@ -166,21 +166,20 @@ const reducer = (state=initialState, action) =>{
                 ]
             };
         case actionTypes.DELETE_COMMENT:
-            let comments = state.comments;
-            let cardWithComment = state.cards.find( card => card.id === action.cardId);
-            const indexOfComment = cardWithComment.comments.indexOf(comments[action.commentIndex].id);
-            cardWithComment.comments.splice(indexOfComment,1);
-            state.cards[action.cardId]=cardWithComment;
-            comments.splice(action.commentIndex,1);
             return{
                 ...state,
                 commentCounter: state.commentCounter-1,
-                cards:[
-                    ...state.cards
-                ],
-                comments:[
-                    ...comments
-                ]
+                cards:
+                    state.cards.map((card, index) => {
+                        if (card.id !== action.cardId) {
+                          return card
+                        }
+                        return {
+                            ...card,
+                            comments: card.comments.filter((comment, index) => {return comment !== state.comments[action.commentIndex].id})
+                        }
+                    }),
+                comments: state.comments.filter((item, index) => index !== action.commentIndex)
             };
         case actionTypes.ADD_COMMENT:
             const newComment = { 
