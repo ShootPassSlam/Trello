@@ -167,7 +167,7 @@ const reducer = (state=initialState, action) =>{
         case actionTypes.DELETE_COMMENT:
             let comments = state.comments;
             let cardWithComment = state.cards.find( card => card.id === action.cardId);
-            const indexOfComment = cardWithComment.comments.indexOf(comments[action.commentIndex]);
+            const indexOfComment = cardWithComment.comments.indexOf(comments[action.commentIndex].id);
             cardWithComment.comments.splice(indexOfComment,1);
             comments.splice(action.commentIndex,1);
             return{
