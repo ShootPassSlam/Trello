@@ -45,7 +45,6 @@ class CardDetail extends Component {
                         <Comments commentIds={card.comments}/>
                     </div>
                     <div className={styles.windowSidebar} >
-                        <div>ADD TO CARD</div>
                     </div>
                 </div>
             </Aux>

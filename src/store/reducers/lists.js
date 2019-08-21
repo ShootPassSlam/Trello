@@ -153,6 +153,17 @@ const reducer = (state=initialState, action) =>{
                 lists: [...newLists],
                 cards: updatedCards
             };
+        case actionTypes.UPDATE_COMMENT:
+            let updatedComment = state.comments[action.commentIndex];
+            updatedComment.text = action.newCommentText
+            updatedComment.date = Date.now();
+            state.comments[action.commentIndex] = updatedComment;
+            return{
+                ...state,
+                comments:[
+                    ...state.comments
+                ]
+            }
         default:
             return state;   
     }

@@ -3,11 +3,14 @@ import { connect } from 'react-redux';
 import * as listActions from '../../../store/actions/lists';
 import styles from './Comments.module.css';
 
+import InputComment  from '../InputComment/InputComment';
+
 import List from '@material-ui/icons/List';
 
 class Comments extends Component {
 
     render(){
+
         let comments = null;
         if(this.props.commentIds){
             comments = this.props.commentIds
@@ -28,18 +31,12 @@ class Comments extends Component {
                                     })}
                                 </span>
                             </div>
-                            <div className={styles.commentContainer}>
-                                <div className={styles.comment}>{comment.text}</div>
-                            </div>
-                            <div className={styles.buttons}>
-                                <a>Edit</a>
-                                <span>-</span>
-                                <a>Delete</a>
-                            </div>
+                            <InputComment comment={comment} commentIndex={this.props.comments.indexOf(comment)}/>
                         </li>
                     );
                 });
         }
+
         return( 
             <div>
                 <div className={styles.commentsContainer}>

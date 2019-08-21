@@ -33,3 +33,11 @@ export const moveList = (originalListIndex, newListIndex) => {
         newListIndex: newListIndex
     };
 };
+
+export const updateComment = (commentIndex, newCommentText) => {
+    return {
+        type: actionTypes.UPDATE_COMMENT,
+        commentIndex: commentIndex,
+        newCommentText: newCommentText
+    };
+};
