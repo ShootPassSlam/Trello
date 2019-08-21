@@ -41,3 +41,11 @@ export const updateComment = (commentIndex, newCommentText) => {
         newCommentText: newCommentText
     };
 };
+
+export const deleteComment = (commentIndex, cardId) => {
+    return {
+        type: actionTypes.DELETE_COMMENT,
+        commentIndex: commentIndex,
+        cardId: cardId
+    };
+};

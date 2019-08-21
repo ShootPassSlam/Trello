@@ -22,6 +22,10 @@ class InputComment extends Component{
         this.setState({inputActive: false});
     }
 
+    handleDelete = event => {
+        this.props.handleDelete(this.props.commentIndex, this.props.cardId)
+    }
+
     inputActiveHandler = () => {
         this.setState({inputActive: true},() => {
             this.inputRef.select();
@@ -58,7 +62,7 @@ class InputComment extends Component{
                                 <textarea ref={inputEl => { this.inputRef = inputEl; }} type="text" className={styles.commentBoxInput} value={this.state.commentText} onChange={this.handleChange} placeholder={placeholder}/>
                                 <div className={styles.confirmationButtons}>
                                     <button className={styles.FormAcceptButton} disabled={!formIsValid}>Save</button>
-                                    <a className={styles.closeButton} onClick={this.inputInactiveHandler}><Close className={styles.Close} style={{ fontSize: 26 }}/></a>
+                                    <button className={styles.closeButton} onClick={this.inputInactiveHandler}><Close className={styles.Close} style={{ fontSize: 26 }}/></button>
                                 </div>
                             </div>
                         </div>
@@ -73,9 +77,9 @@ class InputComment extends Component{
                         <div className={styles.comment}>{this.props.comment.text}</div>
                     </div>
                     <div className={styles.buttons}>
-                        <a onClick={this.inputActiveHandler}>Edit</a>
+                        <button onClick={this.inputActiveHandler}>Edit</button>
                         <span>-</span>
-                        <a>Delete</a>
+                        <button onClick={this.handleDelete}>Delete</button>
                     </div>   
                 </Aux>
             );
@@ -87,7 +91,7 @@ class InputComment extends Component{
 
 const mapDispatchToProps= dispatch => {
     return {
-        onUpdateComment: (commentIndex, commentText) => dispatch(listActions.updateComment(commentIndex, commentText)),
+        onUpdateComment: (commentIndex, commentText) => dispatch(listActions.updateComment(commentIndex, commentText))
     }
 }
 

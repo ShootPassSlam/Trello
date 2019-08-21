@@ -66,11 +66,13 @@
     padding-top:8px;
 }
 
-.buttons a{
+.buttons button{
     color: #6b778c;
     text-decoration: underline;
     font-size: 12px;
     cursor: pointer;
+    background:none;
+    border:none;
 }
 
 .closeButton{
@@ -84,6 +86,7 @@
     transition: background-color .1s,color .1s;
     color: #42526e;
     cursor: pointer;
+    border:none;
 }
 
 .confirmationButtons{

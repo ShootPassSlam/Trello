@@ -10,7 +10,6 @@ import List from '@material-ui/icons/List';
 class Comments extends Component {
 
     render(){
-
         let comments = null;
         if(this.props.commentIds){
             comments = this.props.commentIds
@@ -31,7 +30,11 @@ class Comments extends Component {
                                     })}
                                 </span>
                             </div>
-                            <InputComment comment={comment} commentIndex={this.props.comments.indexOf(comment)}/>
+                            <InputComment 
+                                comment={comment} 
+                                commentIndex={this.props.comments.indexOf(comment)} 
+                                cardId={this.props.cardId}
+                                handleDelete={this.props.onDeleteComment}/>
                         </li>
                     );
                 });
@@ -67,4 +70,10 @@ const mapStateToProps = state => {
     };
 }
 
-export default connect(mapStateToProps)(Comments);
+const mapDispatchToProps= dispatch => {
+    return {
+        onDeleteComment: (commentIndex, cardId) => dispatch(listActions.deleteComment(commentIndex, cardId)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Comments);

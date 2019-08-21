@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as listActions from '../../../store/actions/lists';
 import styles from './Description.module.css';
 
 import Subject from '@material-ui/icons/Subject';
@@ -15,7 +14,7 @@ class Description extends Component {
                     <h3>Description</h3>
                 </div>
                 <div>
-                    <a className={styles.descriptionField} href="#">Add a more detailed description…</a>
+                    <button className={styles.descriptionField} href="#">Add a more detailed description…</button>
                 </div>
             </div>
         )

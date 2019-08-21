@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {Redirect} from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as listActions from '../../store/actions/lists';
 import styles from './CardDetail.module.css';
 
 import Aux from '../../hoc/Aux';
@@ -28,7 +27,7 @@ class CardDetail extends Component {
 
         return(
             <Aux>
-                <a className={styles.closeButton} onClick={back}><Close className={styles.Close} style={{ fontSize: 26 }}/></a>
+                <button className={styles.closeButton} onClick={back} href="#"><Close className={styles.Close} style={{ fontSize: 26 }}/></button>
                 <div>
                     <div className={styles.windowHeader}>
                         <span><Web className={styles.windowHeaderIcon} style={{ fontSize: 24 }}/></span>
@@ -42,7 +41,7 @@ class CardDetail extends Component {
                     <div className={styles.windowMain}>
                         <div className={styles.gutter}></div>
                         <Description/>
-                        <Comments commentIds={card.comments}/>
+                        <Comments commentIds={card.comments} cardId={card.id}/>
                     </div>
                     <div className={styles.windowSidebar} >
                     </div>

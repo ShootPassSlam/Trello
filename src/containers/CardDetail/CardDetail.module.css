@@ -69,6 +69,8 @@
     z-index: 2;
     transition: background-color .1s,color .1s;
     color: #42526e;
+    border: none;
+    background:none;
 }
 
 .closeButton:hover{
@@ -79,7 +81,6 @@
 }
 
 .Close{
-    margin: 3px;
     color: #798d99;
     cursor: pointer;
 }

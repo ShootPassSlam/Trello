@@ -163,7 +163,23 @@ const reducer = (state=initialState, action) =>{
                 comments:[
                     ...state.comments
                 ]
-            }
+            };
+        case actionTypes.DELETE_COMMENT:
+            let comments = state.comments;
+            let cardWithComment = state.cards.find( card => card.id === action.cardId);
+            const indexOfComment = cardWithComment.comments.indexOf(comments[action.commentIndex]);
+            cardWithComment.comments.splice(indexOfComment,1);
+            comments.splice(action.commentIndex,1);
+            return{
+                ...state,
+                cards:[
+                    ...state.cards,
+                    cardWithComment
+                ],
+                comments:[
+                    ...comments
+                ]
+            };
         default:
             return state;   
     }

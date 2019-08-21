@@ -45,6 +45,8 @@
 
 .commentBoxInput{
     max-height:150px;
+    height: 20px;
+    width: 100%;
     box-shadow: 0 2px 3px #ccc;
     border:none;
     border-radius: 5px;

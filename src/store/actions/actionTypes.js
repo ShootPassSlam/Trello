@@ -3,3 +3,4 @@ export const ADD_CARD = "ADD_CARD";
 export const MOVE_CARD = "MOVE_CARD";
 export const MOVE_LIST = "MOVE_LIST";
 export const UPDATE_COMMENT = "UPDATE_COMMENT";
+export const DELETE_COMMENT = "DELETE_COMMENT";
