@@ -188,19 +188,25 @@ const reducer = (state=initialState, action) =>{
                 text: action.commentText, 
                 date: Date.now()
             }
-            let cardWithNewComment = state.cards.find( card => card.id === action.cardId);
-            cardWithNewComment.comments.push(newComment.id);
-            state.cards[action.cardId]=cardWithNewComment;
-            state.comments.push(newComment)
+            let newComments = state.comments.slice()
+            newComments.splice(state.commentCounter,0,newComment)
+
             return{
                 ...state,
                 commentCounter: state.commentCounter+1,
-                cards:[
-                    ...state.cards
-                ],
-                comments:[
-                    ...state.comments
-                ]
+                cards:
+                    state.cards.map((card, index) => {
+                        if (card.id !== action.cardId) {
+                          return card
+                        }
+                        let cardComments = card.comments.slice()
+                        cardComments.splice(cardComments.length,0,newComment.id)
+                        return {
+                            ...card,
+                            comments: cardComments
+                        }
+                    }),
+                comments: newComments
             }
         default:
             return state;   
