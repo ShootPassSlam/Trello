@@ -1,4 +1,5 @@
 import * as actionTypes from './actionTypes';
+import axios from 'axios';
 
 export const addList = (name) =>{
     return {
@@ -56,5 +57,42 @@ export const newComment = (commentText, author, cardId) => {
         commentText: commentText,
         author: author,
         cardId: cardId
+    };
+};
+
+export const setBoards = (lists, cards, listCounter, cardCounter) => {
+    return {
+        type: actionTypes.SET_BOARDS,
+        lists: lists,
+        cards: cards,
+        listCounter: listCounter,
+        cardCounter: cardCounter
+    };
+};
+
+export const fetchBoardsFailed = () => {
+    return {
+        type: actionTypes.FETCH_BOARDS_FAILED
+    };
+};
+
+export const initBoards = () => {
+    return dispatch => {
+        axios.all([
+            axios.get('https://trello-33445.firebaseio.com/lists.json'),
+            axios.get('https://trello-33445.firebaseio.com/cards.json'),
+            axios.get('https://trello-33445.firebaseio.com/counters.json'),
+        ])
+        .then(axios.spread((listsRes, cardsRes, counterRes) => {
+            dispatch(setBoards(
+                listsRes.data, 
+                cardsRes.data,  
+                counterRes.data.listCounter, 
+                counterRes.data.cardCounter
+            ));
+        }))
+        .catch(error=>{
+            dispatch(fetchBoardsFailed());
+        });
     };
 };

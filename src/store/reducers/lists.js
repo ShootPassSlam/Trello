@@ -1,89 +1,13 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    listCounter: 2,
-    cardCounter: 8,
-    commentCounter: 2,
-    lists: [
-        {
-            text: "Game One",
-        },
-        {
-            text: "Game Two"
-        }
-    ],
-    cards:[
-        {
-            id:"card1",
-            listIndex: 0,
-            title: 'Come up with a great game idea',
-            description: "first Description",
-            comments:["comment1", "comment2"]
-        },
-        {
-            id:"card2",
-            listIndex: 0,
-            title: 'Write a solid spec outlining the idea',
-            description: "",
-            comments:[]
-        },
-        {
-            id:"card3",
-            listIndex: 0,
-            title: 'Build and MVP Prototype',
-            description: "",
-            comments:[]
-        },
-        {
-            id:"card4",
-            listIndex: 0,
-            title: 'Iterate on the prototype until fun',
-            description: "",
-            comments:[]
-        },
-        {
-            id:"card5",
-            listIndex: 0,
-            title: 'Launch and gather player data',
-            description: "",
-            comments:[]
-        },
-        {
-            id:"card6",
-            listIndex: 0,
-            title: 'Iterate based on player data',
-            description: "",
-            comments:[]
-        },
-        {
-            id:"card7",
-            listIndex: 0,
-            title: 'PROFIT',
-            description: "",
-            comments:[]
-        },
-        {
-            id:"card8",
-            listIndex: 1,
-            title: 'Do it all again',
-            description: "",
-            comments:[]
-        }
-    ],
-    comments:[
-        {
-            id:"comment1",
-            user: "Dominic Scotto",
-            text: "First Comment",
-            date: Date.now()
-        },
-        {
-            id:"comment2",
-            user: "Dominic Scotto",
-            text: "Second Comment",
-            date: Date.now()
-        }
-    ]
+    listCounter: 0,
+    cardCounter: 0,
+    commentCounter: 0,
+    lists: [],
+    cards:[],
+    comments:[],
+    error: false
 };
 
 const reducer = (state=initialState, action) =>{
@@ -125,7 +49,7 @@ const reducer = (state=initialState, action) =>{
 
             return{
                 ...state,
-                cards: [...newCards]
+                cards: newCards
             };
         case actionTypes.MOVE_LIST:
             let newLists = [
@@ -207,6 +131,20 @@ const reducer = (state=initialState, action) =>{
                         }
                     }),
                 comments: newComments
+            }
+         case actionTypes.SET_BOARDS:
+            return{
+                ...state,
+                lists: action.lists,
+                cards: action.cards,
+                listCounter: action.listCounter,
+                cardCounter: action.cardCounter,
+            }
+        case actionTypes.FETCH_BOARDS_FAILED:
+
+            return {
+                ...state,
+                error: true
             }
         default:
             return state;   

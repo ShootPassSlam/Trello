@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions/lists';
+
 import styles from './Board.module.css';
 import BoardTitle from '../../components/BoardTitle/BoardTitle';
 import Topbar from '../../components/Topbar/Topbar';
@@ -6,6 +9,10 @@ import Lists from '../Lists/Lists';
 import Aux from '../../hoc/Aux';
 
 class Board extends Component {
+    componentDidMount(){
+        this.props.onInitBoards();
+    }
+
     render(){
         return(
         <Aux>
@@ -19,4 +26,10 @@ class Board extends Component {
     }
 }
 
-export default Board;
+const mapDispatchToProps= dispatch => {
+    return {
+        onInitBoards: () => dispatch(actions.initBoards())
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Board);
