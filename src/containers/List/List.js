@@ -90,6 +90,8 @@ class List extends Component{
                     id={"NOID"}
                     index={0}
                     listIndex={this.props.listIndex}
+                    findCard={this.findCardHandler}
+                    cardMove={this.props.onCardMoved}
                     isEmptyList={true}
                     isOver={isOver}
                 />;
