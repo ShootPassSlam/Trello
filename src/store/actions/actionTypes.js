@@ -11,3 +11,5 @@ export const FETCH_BOARDS_FAILED =  "FETCH_BOARDS_FAILED";
 
 export const SET_CARD = "SET_CARD";
 export const FETCH_CARD_FAILED =  "FETCH_CARD_FAILED";
+
+export const ADD_CARD_FAILED =  "ADD_CARD_FAILED";

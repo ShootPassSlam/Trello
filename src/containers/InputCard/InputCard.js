@@ -15,7 +15,13 @@ class InputCard extends Component{
 
     handleSubmit = event => {
         event.preventDefault();
-        this.props.createNewCard(this.state.cardName, this.props.listIndex);
+        const newCard = {
+            id: `card${this.props.cards.length+1}`,
+            listIndex: this.props.listIndex,
+            title: this.state.cardName,
+            comments: []
+        }
+        this.props.createNewCard(newCard);
         this.setState({cardName: ""});
     }
 

@@ -8,11 +8,10 @@ export const addList = (name) =>{
     };
 };
 
-export const addCard = (cardName, listIndex) =>{
+export const addCard = (newCard) =>{
     return {
         type: actionTypes.ADD_CARD,
-        listIndex: listIndex,
-        cardName: cardName
+        newCard: newCard
     };
 };
 
@@ -78,7 +77,6 @@ export const fetchBoardsFailed = () => {
 };
 
 export const setCard = (comments) => {
-    console.log(comments)
     return {
         type: actionTypes.SET_CARD,
         comments: comments
@@ -88,6 +86,13 @@ export const setCard = (comments) => {
 export const fetchCardFailed = () => {
     return {
         type: actionTypes.FETCH_CARD_FAILED
+    };
+};
+
+export const addCardFail = (error) => {
+    return{
+        type: actionTypes.ADD_CARD_FAILED,
+        error: error
     };
 };
 
@@ -121,6 +126,18 @@ export const initCard = () => {
             })
             .catch( error =>{
                 dispatch(fetchCardFailed());
+            });
+    };
+};
+
+export const addCardToDatabase = (cardData) => {
+    return dispatch =>{
+        axios.post('https://trello-33445.firebaseio.com/cards.json', cardData)
+            .then(response => {
+                dispatch(addCard(cardData));
+            })
+            .catch(error => {
+                dispatch(addCardFail(error));
             });
     };
 };

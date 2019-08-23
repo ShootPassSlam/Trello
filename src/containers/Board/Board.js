@@ -12,7 +12,6 @@ class Board extends Component {
     componentDidMount(){
         this.props.onInitBoards();
         this.props.onInitCard();
-        console.log("board set")
     }
 
     render(){

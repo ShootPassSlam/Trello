@@ -23,20 +23,13 @@ const reducer = (state=initialState, action) =>{
                 ]
             };
         case actionTypes.ADD_CARD:
-            const newCard = {
-                id:`card${state.cardCounter+1}`, 
-                listIndex:action.listIndex, 
-                title: action.cardName, 
-                description:"", 
-                comments:[]
-            }
 
             return{
                 ...state,
                 cardCounter: state.cardCounter+1,
                 cards:[
                     ...state.cards,
-                    newCard
+                    action.newCard
                 ]
             };
         case actionTypes.MOVE_CARD:
@@ -141,6 +134,11 @@ const reducer = (state=initialState, action) =>{
                 cardCounter: action.cardCounter,
                 commentCounter: action.commentCounter
             }
+        case actionTypes.FETCH_BOARDS_FAILED:
+            return {
+                ...state,
+                error: true
+            }
         case actionTypes.SET_CARD:
             return{
                 ...state,
@@ -151,7 +149,7 @@ const reducer = (state=initialState, action) =>{
                 ...state,
                 error: true
             }
-        case actionTypes.FETCH_BOARDS_FAILED:
+        case actionTypes.ADD_CARD_FAILED:
             return {
                 ...state,
                 error: true

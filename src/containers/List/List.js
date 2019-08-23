@@ -136,7 +136,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps= dispatch => {
     return {
-        onCardAdded: (cardName, listIndex) => dispatch(listActions.addCard(cardName, listIndex)),
+        onCardAdded: (newCard) => dispatch(listActions.addCardToDatabase(newCard)),
         onCardMoved: (draggedListIndex, hoverListIndex, draggedCardIndex, hoverCardIndex, card) => dispatch(listActions.moveCard(draggedListIndex, hoverListIndex, draggedCardIndex, hoverCardIndex, card))
     }
 }
