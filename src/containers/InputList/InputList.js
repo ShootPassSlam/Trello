@@ -17,7 +17,10 @@ class InputList extends Component{
 
     handleSubmit = event => {
         event.preventDefault();
-        this.props.onListAdded(this.state.listName);
+        const newList = {
+            text: this.state.listName
+        }
+        this.props.onListAdded(newList);
         this.setState({listName: ""});
     }
 
@@ -81,7 +84,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps= dispatch => {
     return {
-        onListAdded: (listName) => dispatch(listActions.addList(listName)),
+        onListAdded: (newList) => dispatch(listActions.addListToDatabase(newList)),
     }
 }
 

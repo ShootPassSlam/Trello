@@ -1,10 +1,10 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
-export const addList = (name) =>{
+export const addList = (newList) =>{
     return {
         type: actionTypes.ADD_LIST,
-        listName: name
+        newList: newList
     };
 };
 
@@ -59,14 +59,13 @@ export const newComment = (commentText, author, cardId) => {
     };
 };
 
-export const setBoards = (lists, cards, listCounter, cardCounter, commentCounter) => {
+export const setBoards = (lists, cards) => {
     return {
         type: actionTypes.SET_BOARDS,
         lists: lists,
         cards: cards,
-        listCounter: listCounter,
-        cardCounter: cardCounter,
-        commentCounter: commentCounter
+        listCounter: lists.length,
+        cardCounter: cards.length
     };
 };
 
@@ -79,7 +78,8 @@ export const fetchBoardsFailed = () => {
 export const setCard = (comments) => {
     return {
         type: actionTypes.SET_CARD,
-        comments: comments
+        comments: comments,
+        commentCounter: comments.length
     }
 };
 
@@ -96,20 +96,23 @@ export const addCardFail = (error) => {
     };
 };
 
+export const addListFail = (error) => {
+    return{
+        type: actionTypes.ADD_LIST_FAILED,
+        error: error
+    };
+};
+
 export const initBoards = () => {
     return dispatch => {
         axios.all([
             axios.get('https://trello-33445.firebaseio.com/lists.json'),
             axios.get('https://trello-33445.firebaseio.com/cards.json'),
-            axios.get('https://trello-33445.firebaseio.com/counters.json'),
         ])
-        .then(axios.spread((listsRes, cardsRes, counterRes) => {
+        .then(axios.spread((listsRes, cardsRes) => {
             dispatch(setBoards(
-                listsRes.data, 
-                Object.values(cardsRes.data),  
-                counterRes.data.listCounter, 
-                counterRes.data.cardCounter,
-                counterRes.data.commentCounter
+                Object.values(listsRes.data), 
+                Object.values(cardsRes.data)
             ));
         }))
         .catch(error=>{
@@ -138,6 +141,18 @@ export const addCardToDatabase = (cardData) => {
             })
             .catch(error => {
                 dispatch(addCardFail(error));
+            });
+    };
+};
+
+export const addListToDatabase = (listData) => {
+    return dispatch =>{
+        axios.post('https://trello-33445.firebaseio.com/lists.json', listData)
+            .then(response => {
+                dispatch(addList(listData));
+            })
+            .catch(error => {
+                dispatch(addListFail(error));
             });
     };
 };

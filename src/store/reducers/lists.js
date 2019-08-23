@@ -13,13 +13,12 @@ const initialState = {
 const reducer = (state=initialState, action) =>{
     switch(action.type){
         case actionTypes.ADD_LIST:
-            const newList = {text: action.listName};
             return{
                 ...state,
                 listCounter: state.listCounter+1,
                 lists: [
                     ...state.lists,
-                    newList
+                    action.newList
                 ]
             };
         case actionTypes.ADD_CARD:
@@ -131,8 +130,7 @@ const reducer = (state=initialState, action) =>{
                 lists: action.lists,
                 cards: action.cards,
                 listCounter: action.listCounter,
-                cardCounter: action.cardCounter,
-                commentCounter: action.commentCounter
+                cardCounter: action.cardCounter
             }
         case actionTypes.FETCH_BOARDS_FAILED:
             return {
@@ -142,7 +140,8 @@ const reducer = (state=initialState, action) =>{
         case actionTypes.SET_CARD:
             return{
                 ...state,
-                comments: action.comments
+                comments: action.comments,
+                commentCounter: action.commentCounter
             }
         case actionTypes.FETCH_CARD_FAILED:
             return {
@@ -150,6 +149,11 @@ const reducer = (state=initialState, action) =>{
                 error: true
             }
         case actionTypes.ADD_CARD_FAILED:
+            return {
+                ...state,
+                error: true
+            }   
+        case actionTypes.ADD_LIST_FAILED:
             return {
                 ...state,
                 error: true
