@@ -58,4 +58,5 @@ const mapStateToProps = state => {
     };
 }
 
+
 export default connect(mapStateToProps)(CardDetail);

@@ -60,19 +60,34 @@ export const newComment = (commentText, author, cardId) => {
     };
 };
 
-export const setBoards = (lists, cards, listCounter, cardCounter) => {
+export const setBoards = (lists, cards, listCounter, cardCounter, commentCounter) => {
     return {
         type: actionTypes.SET_BOARDS,
         lists: lists,
         cards: cards,
         listCounter: listCounter,
-        cardCounter: cardCounter
+        cardCounter: cardCounter,
+        commentCounter: commentCounter
     };
 };
 
 export const fetchBoardsFailed = () => {
     return {
         type: actionTypes.FETCH_BOARDS_FAILED
+    };
+};
+
+export const setCard = (comments) => {
+    console.log(comments)
+    return {
+        type: actionTypes.SET_CARD,
+        comments: comments
+    }
+};
+
+export const fetchCardFailed = () => {
+    return {
+        type: actionTypes.FETCH_CARD_FAILED
     };
 };
 
@@ -88,11 +103,24 @@ export const initBoards = () => {
                 listsRes.data, 
                 cardsRes.data,  
                 counterRes.data.listCounter, 
-                counterRes.data.cardCounter
+                counterRes.data.cardCounter,
+                counterRes.data.commentCounter
             ));
         }))
         .catch(error=>{
             dispatch(fetchBoardsFailed());
         });
+    };
+};
+
+export const initCard = () => {
+    return dispatch => {
+        axios.get('https://trello-33445.firebaseio.com/comments.json')
+            .then( response => {
+                dispatch(setCard(response.data));
+            })
+            .catch( error =>{
+                dispatch(fetchCardFailed());
+            });
     };
 };

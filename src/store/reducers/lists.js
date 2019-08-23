@@ -132,16 +132,26 @@ const reducer = (state=initialState, action) =>{
                     }),
                 comments: newComments
             }
-         case actionTypes.SET_BOARDS:
+        case actionTypes.SET_BOARDS:
             return{
                 ...state,
                 lists: action.lists,
                 cards: action.cards,
                 listCounter: action.listCounter,
                 cardCounter: action.cardCounter,
+                commentCounter: action.commentCounter
+            }
+        case actionTypes.SET_CARD:
+            return{
+                ...state,
+                comments: action.comments
+            }
+        case actionTypes.FETCH_CARD_FAILED:
+            return {
+                ...state,
+                error: true
             }
         case actionTypes.FETCH_BOARDS_FAILED:
-
             return {
                 ...state,
                 error: true

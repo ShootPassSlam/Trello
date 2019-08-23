@@ -11,6 +11,8 @@ import Aux from '../../hoc/Aux';
 class Board extends Component {
     componentDidMount(){
         this.props.onInitBoards();
+        this.props.onInitCard();
+        console.log("board set")
     }
 
     render(){
@@ -28,7 +30,8 @@ class Board extends Component {
 
 const mapDispatchToProps= dispatch => {
     return {
-        onInitBoards: () => dispatch(actions.initBoards())
+        onInitBoards: () => dispatch(actions.initBoards()),
+        onInitCard: () => dispatch(actions.initCard())
     }
 }
 

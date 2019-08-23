@@ -8,3 +8,6 @@ export const DELETE_COMMENT = "DELETE_COMMENT";
 
 export const SET_BOARDS = "SET_BOARDS";
 export const FETCH_BOARDS_FAILED =  "FETCH_BOARDS_FAILED";
+
+export const SET_CARD = "SET_CARD";
+export const FETCH_CARD_FAILED =  "FETCH_CARD_FAILED";
