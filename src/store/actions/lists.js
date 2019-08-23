@@ -106,7 +106,7 @@ export const initBoards = () => {
         .then(axios.spread((listsRes, cardsRes, counterRes) => {
             dispatch(setBoards(
                 listsRes.data, 
-                cardsRes.data,  
+                Object.values(cardsRes.data),  
                 counterRes.data.listCounter, 
                 counterRes.data.cardCounter,
                 counterRes.data.commentCounter
